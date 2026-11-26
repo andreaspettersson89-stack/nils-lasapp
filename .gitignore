@@ -1,0 +1,5 @@
+.DS_Store
+# reserv- och provljud som inte ska ut på nätet
+ljud/v2/
+ljud/borttagna/
+ljud/fon-*.mp3

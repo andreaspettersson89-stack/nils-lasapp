@@ -1,0 +1,917 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="robots" content="noindex, nofollow">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Ljuda ihop – skiss 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --u: min(1vh, .75vw);
+  --blk: calc(var(--u) * 19);
+  --g: calc(var(--u) * 8);
+  --ink:#2b2a26; --cream:#f5f4ed; --antracit:#4D4C44; --teal:#1f8a8a;
+  --font:'Andika','Avenir Next','Helvetica Neue',system-ui,sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;overflow:hidden;background:#6fc0ee;font-family:var(--font);color:var(--ink);
+  -webkit-user-select:none;user-select:none;touch-action:manipulation;-webkit-touch-callout:none}
+button{font-family:inherit;color:inherit;border:0;background:none;padding:0;cursor:pointer}
+.px{image-rendering:pixelated;image-rendering:crisp-edges}
+
+.screen{position:fixed;inset:0;display:none;overflow:hidden}
+.screen.on{display:block}
+
+/* ---------- världen ---------- */
+.sky{position:absolute;inset:0;background:linear-gradient(#4fa9e6 0%,#8fd0f4 55%,#cdeefb 100%)}
+.cave{position:absolute;inset:0;background-image:var(--t-cave);background-size:calc(var(--u)*12) calc(var(--u)*12);image-rendering:pixelated}
+.cave::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 42%,rgba(255,210,120,.28),rgba(0,0,0,.55) 70%)}
+.cloud{position:absolute;background-size:100% 100%;image-rendering:pixelated;opacity:.95}
+.sun{position:absolute;width:calc(var(--u)*11);height:calc(var(--u)*11);background:#ffe36b;
+  box-shadow:0 0 0 calc(var(--u)*1.2) #fff2a8, 0 0 0 calc(var(--u)*2.4) rgba(255,242,168,.45)}
+.ground{position:absolute;left:0;right:0;bottom:0;height:calc(var(--g)*2);
+  background-image:var(--t-grass),var(--t-dirt);background-repeat:repeat-x,repeat;
+  background-size:var(--g) var(--g),var(--g) var(--g);background-position:0 0,0 var(--g);image-rendering:pixelated}
+.ground.stone{background-image:var(--t-stonefloor),var(--t-deep);background-repeat:repeat-x,repeat}
+.tree{position:absolute;bottom:calc(var(--g)*2)}
+.tree .leaves{position:absolute;background-image:var(--t-leaves);background-size:var(--g) var(--g);image-rendering:pixelated}
+.tree .log{position:absolute;background-image:var(--t-log);background-size:var(--g) var(--g);image-rendering:pixelated}
+
+/* ---------- block ---------- */
+.block{position:relative;width:var(--blk);height:var(--blk);background-size:100% 100%;image-rendering:pixelated;
+  box-shadow:inset calc(var(--blk)*.045) calc(var(--blk)*.045) 0 rgba(255,255,255,.22),
+             inset calc(var(--blk)*-.06) calc(var(--blk)*-.06) 0 rgba(0,0,0,.28),
+             0 calc(var(--blk)*.05) 0 rgba(0,0,0,.22)}
+.block .plate{position:absolute;inset:17%;background:#fdf8ea;border-radius:9%;display:grid;place-items:center;
+  font-weight:700;font-size:calc(var(--blk)*.5);line-height:1;padding-bottom:4%;
+  box-shadow:inset 0 calc(var(--blk)*-.03) 0 rgba(0,0,0,.12)}
+.block .plate.word{font-size:calc(var(--blk)*.27);inset:22% 10%}
+.block.pop{animation:pop .35s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes pop{from{transform:scale(.2);opacity:0}to{transform:scale(1);opacity:1}}
+.block.wobble{animation:wob .45s ease}
+@keyframes wob{20%{transform:rotate(-7deg)}40%{transform:rotate(6deg)}60%{transform:rotate(-4deg)}80%{transform:rotate(2deg)}}
+.block.hint{animation:hint 1s ease-in-out infinite}
+@keyframes hint{50%{transform:translateY(calc(var(--u)*-1.6));filter:brightness(1.25) drop-shadow(0 0 calc(var(--u)*1.5) #fff6a0)}}
+.block.crack::after{content:"";position:absolute;inset:0;background-image:var(--t-crack);background-size:100% 100%;image-rendering:pixelated}
+.block.crack{animation:shake .22s linear}
+@keyframes shake{25%{transform:translate(-3px,1px)}50%{transform:translate(3px,-1px)}75%{transform:translate(-2px,0)}}
+.piece{position:fixed;background-size:400% 400%;image-rendering:pixelated;pointer-events:none;z-index:50}
+
+/* ---------- HUD ---------- */
+.hud{position:absolute;top:calc(var(--u)*3);left:calc(var(--u)*3);right:calc(var(--u)*3);display:flex;align-items:center;gap:calc(var(--u)*2);z-index:10}
+.hud .spacer{flex:1}
+.iconbtn{width:calc(var(--u)*10);height:calc(var(--u)*10);display:grid;place-items:center;background-size:100% 100%;image-rendering:pixelated;
+  background-image:var(--t-plank);box-shadow:inset 3px 3px 0 rgba(255,255,255,.25),inset -4px -4px 0 rgba(0,0,0,.3)}
+.iconbtn svg{width:58%;height:58%}
+.bag{display:flex;align-items:center;gap:calc(var(--u)*1.4);background:rgba(43,42,38,.55);padding:calc(var(--u)*1) calc(var(--u)*2) calc(var(--u)*1) calc(var(--u)*1);
+  border-radius:calc(var(--u)*1.2);color:#fff;font-weight:700;font-size:calc(var(--u)*3.4)}
+.bag .sack{width:calc(var(--u)*8);height:calc(var(--u)*8);background-size:100% 100%;image-rendering:pixelated}
+.bag .sack.bump{animation:bump .3s ease}
+@keyframes bump{50%{transform:scale(1.25) rotate(-6deg)}}
+.bag .item{display:flex;align-items:center;gap:calc(var(--u)*.6)}
+.bag .item i{display:block;width:calc(var(--u)*4);height:calc(var(--u)*4);background-size:100% 100%;image-rendering:pixelated;box-shadow:inset -2px -2px 0 rgba(0,0,0,.3)}
+.bag .item.zero{opacity:.35}
+.gear{width:calc(var(--u)*7);height:calc(var(--u)*7);border-radius:50%;background:rgba(43,42,38,.35);display:grid;place-items:center}
+.gear svg{width:55%;height:55%;fill:#fff}
+.progress{display:flex;gap:calc(var(--u)*1)}
+.progress span{width:calc(var(--u)*5.5);height:calc(var(--u)*5.5);border:calc(var(--u)*.5) dashed rgba(255,255,255,.7);background-size:100% 100%;image-rendering:pixelated}
+.progress span.full{border:0;box-shadow:inset -3px -3px 0 rgba(0,0,0,.3);animation:pop .3s ease both}
+
+/* ---------- figuren ---------- */
+.hero{position:absolute;width:calc(var(--u)*17.5);height:calc(var(--u)*20);background-size:100% 100%;image-rendering:pixelated;transform-origin:50% 100%}
+.hero.jump{animation:jump .5s cubic-bezier(.3,.7,.4,1)}
+@keyframes jump{40%{transform:translateY(calc(var(--u)*-5)) scaleY(1.04)}70%{transform:translateY(0) scaleY(.93)}}
+.namn{position:absolute;font-weight:700;font-size:calc(var(--u)*2.6);color:#fff;background:rgba(43,42,38,.6);border-radius:999px;padding:calc(var(--u)*.4) calc(var(--u)*1.6);white-space:nowrap;transform:translateX(-50%)}
+.bubble{position:absolute;background:#fff;border-radius:calc(var(--u)*2);padding:calc(var(--u)*1.6) calc(var(--u)*2.4);font-size:calc(var(--u)*3.6);font-weight:700;white-space:nowrap;
+  box-shadow:0 calc(var(--u)*.6) 0 rgba(0,0,0,.15);display:flex;align-items:center;gap:calc(var(--u)*1.2)}
+.bubble::after{content:"";position:absolute;left:calc(var(--u)*4);bottom:calc(var(--u)*-2);border:calc(var(--u)*1.2) solid transparent;border-top:calc(var(--u)*1.4) solid #fff;border-left-color:#fff}
+.bubble svg{width:calc(var(--u)*4);height:calc(var(--u)*4);flex:none}
+
+/* ---------- start ---------- */
+.title{font-weight:700;font-size:calc(var(--u)*5);color:#fff;letter-spacing:.02em;
+  text-shadow:calc(var(--u)*.5) calc(var(--u)*.5) 0 #2f6f9a}
+.path{position:absolute;left:calc(var(--u)*30);bottom:calc(var(--g)*2);display:flex;align-items:flex-end;gap:calc(var(--u)*1.5)}
+.step{position:relative;width:calc(var(--u)*16);display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*1.2)}
+.step .block{--blk:calc(var(--u)*14)}
+.step .cap{font-size:calc(var(--u)*2.8);font-weight:700;background:rgba(255,255,255,.88);border-radius:calc(var(--u)*1.6);padding:calc(var(--u)*.5) calc(var(--u)*1.4);text-align:center;line-height:1.15}
+.step .cap small{display:block;font-size:calc(var(--u)*2.1);font-weight:400;color:#5b594f}
+.step.locked .block{filter:saturate(.25) brightness(.7)}
+.step.locked .block::before{content:"";position:absolute;inset:30%;background-image:var(--t-lock);background-size:100% 100%;image-rendering:pixelated;z-index:2}
+.step.active .block{animation:glow 1.6s ease-in-out infinite}
+@keyframes glow{50%{filter:brightness(1.18);transform:translateY(calc(var(--u)*-1))}}
+.step .play{position:absolute;inset:26%;display:grid;place-items:center}
+.step .play svg{width:100%;height:100%;filter:drop-shadow(0 3px 0 rgba(0,0,0,.35))}
+.arrow{position:absolute;top:calc(var(--u)*-10);left:50%;width:calc(var(--u)*6);height:calc(var(--u)*6);transform:translateX(-50%);animation:arr 1s ease-in-out infinite;background-size:100% 100%;image-rendering:pixelated}
+@keyframes arr{50%{transform:translate(-50%,calc(var(--u)*1.5))}}
+.stars{display:flex;gap:calc(var(--u)*.4)}
+.stars b{width:calc(var(--u)*2.4);height:calc(var(--u)*2.4);background:#ffd84a;clip-path:polygon(50% 0,62% 36%,100% 38%,70% 60%,80% 100%,50% 77%,20% 100%,30% 60%,0 38%,38% 36%)}
+.stars b.off{background:rgba(255,255,255,.55)}
+.minitower{position:absolute;right:calc(var(--u)*6);bottom:calc(var(--g)*2)}
+.minitower .lbl{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(100% + var(--u)*1.2);font-size:calc(var(--u)*2.6);font-weight:700;background:rgba(255,255,255,.88);border-radius:999px;padding:calc(var(--u)*.4) calc(var(--u)*1.6);white-space:nowrap}
+
+/* ---------- tornet ---------- */
+.tower{position:relative}
+.tower .c{position:absolute;background-size:100% 100%;image-rendering:pixelated}
+.tower .c.ghost{background:none;outline:1px dashed rgba(255,255,255,.55);outline-offset:-2px}
+.tower .c.ghost.far{outline-color:rgba(255,255,255,.22)}
+.tower .c.full{box-shadow:inset 2px 2px 0 rgba(255,255,255,.2),inset -3px -3px 0 rgba(0,0,0,.28)}
+.tower .c.next{outline:2px solid #fff6a0;animation:nxt .9s ease-in-out infinite}
+@keyframes nxt{50%{background:rgba(255,246,160,.45)}}
+.tower .pole{position:absolute;background:#6b4a2b}
+.tower .flag{position:absolute;background:#d6452b;clip-path:polygon(0 0,100% 50%,0 100%);animation:pop .4s ease both}
+.tower .c.drop{animation:drop .42s cubic-bezier(.5,0,.7,1.4) both}
+@keyframes drop{from{transform:translateY(calc(var(--u)*-40));opacity:.3}to{transform:none;opacity:1}}
+
+/* ---------- nivåerna ---------- */
+.row{position:absolute;left:50%;bottom:calc(var(--g)*2);transform:translateX(-50%);display:flex;gap:calc(var(--u)*4)}
+.sign{position:absolute;top:calc(var(--u)*13);left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:calc(var(--u)*3)}
+.board{background-image:var(--t-plank);background-size:calc(var(--u)*7) calc(var(--u)*7);image-rendering:pixelated;padding:calc(var(--u)*1.6) calc(var(--u)*6);
+  box-shadow:inset 4px 4px 0 rgba(255,255,255,.2),inset -5px -5px 0 rgba(0,0,0,.3),0 calc(var(--u)*.8) 0 rgba(0,0,0,.2);position:relative}
+.board::before,.board::after{content:"";position:absolute;top:100%;width:calc(var(--u)*2);height:calc(var(--u)*30);background-image:var(--t-log);background-size:calc(var(--u)*2) calc(var(--u)*2);z-index:-1}
+.board::before{left:22%}.board::after{right:22%}
+.board .big{background:#fdf8ea;border-radius:calc(var(--u)*1.4);font-weight:700;font-size:calc(var(--u)*17);line-height:1;padding:calc(var(--u)*.5) calc(var(--u)*5) calc(var(--u)*2.2);min-width:calc(var(--u)*22);text-align:center}
+.speak{width:calc(var(--u)*13);height:calc(var(--u)*13);display:grid;place-items:center;background-size:100% 100%;image-rendering:pixelated;
+  box-shadow:inset 4px 4px 0 rgba(255,255,255,.35),inset -5px -5px 0 rgba(0,0,0,.3),0 calc(var(--u)*.8) 0 rgba(0,0,0,.25)}
+.speak svg{width:60%;height:60%}
+.speak.talking svg{animation:tk .5s ease-in-out infinite}
+@keyframes tk{50%{transform:scale(1.12)}}
+.speak.huge{width:calc(var(--u)*22);height:calc(var(--u)*22)}
+.listen{position:absolute;top:calc(var(--u)*14);left:50%;transform:translateX(-50%)}
+.modes{position:absolute;bottom:calc(var(--g)*2 + var(--blk) + var(--u)*5);left:50%;transform:translateX(-50%);display:flex;gap:calc(var(--u)*1);background:rgba(0,0,0,.35);padding:calc(var(--u)*.6);border-radius:999px;z-index:5}
+.modes button{color:#fff;font-size:calc(var(--u)*2.4);font-family:system-ui,sans-serif;font-weight:600;padding:calc(var(--u)*.8) calc(var(--u)*2);border-radius:999px}
+.modes button.on{background:#fff;color:var(--ink)}
+
+/* ---------- firandet ---------- */
+.overlay{position:fixed;inset:0;background:rgba(20,30,40,.55);display:none;place-items:center;z-index:60}
+.overlay.on{display:grid}
+.win{background:#fdf8ea;border-radius:calc(var(--u)*3);padding:calc(var(--u)*4) calc(var(--u)*7);text-align:center;animation:pop .45s cubic-bezier(.3,1.6,.5,1) both;
+  box-shadow:0 calc(var(--u)*1.2) 0 rgba(0,0,0,.2)}
+.win h2{margin:0 0 calc(var(--u)*2);font-size:calc(var(--u)*7)}
+.win .loot{display:flex;justify-content:center;gap:calc(var(--u)*1);margin-bottom:calc(var(--u)*3.5)}
+.win .loot i{width:calc(var(--u)*7);height:calc(var(--u)*7);background-size:100% 100%;image-rendering:pixelated;box-shadow:inset -3px -3px 0 rgba(0,0,0,.3);animation:pop .3s ease both}
+.win .btns{display:flex;gap:calc(var(--u)*3);justify-content:center}
+.bigbtn{min-width:calc(var(--u)*20);height:calc(var(--u)*13);display:grid;place-items:center;border-radius:calc(var(--u)*2);background:#5aa83a;
+  box-shadow:inset 0 calc(var(--u)*-1.2) 0 rgba(0,0,0,.25)}
+.bigbtn.sec{background:#d7cdb3}
+.bigbtn svg{width:calc(var(--u)*8);height:calc(var(--u)*8)}
+.confetti{position:fixed;width:calc(var(--u)*1.6);height:calc(var(--u)*1.6);z-index:70;pointer-events:none}
+
+/* ---------- bygget ---------- */
+.buildbtn{position:absolute;right:calc(var(--u)*5);bottom:calc(var(--g)*2 + var(--u)*3);z-index:5}
+.buildbtn .bigbtn{position:relative}
+.badge{position:absolute;top:calc(var(--u)*-2);right:calc(var(--u)*-2);min-width:calc(var(--u)*6);height:calc(var(--u)*6);border-radius:999px;background:#e0452b;color:#fff;
+  font-weight:700;font-size:calc(var(--u)*3.4);display:grid;place-items:center;padding:0 calc(var(--u)*1.2)}
+.skissbox{position:absolute;left:calc(var(--u)*3);top:calc(var(--u)*16);display:flex;flex-direction:column;align-items:flex-start;gap:calc(var(--u)*1);z-index:20}
+.skissbox button{font-family:system-ui,sans-serif;font-size:calc(var(--u)*2.1);font-weight:600;color:#fff;background:rgba(43,42,38,.7);padding:calc(var(--u)*.9) calc(var(--u)*1.8);border-radius:999px}
+
+/* ---------- skissmenyn ---------- */
+.skissnav{position:fixed;bottom:calc(var(--u)*1.5);left:50%;transform:translateX(-50%);z-index:100;display:flex;gap:4px;align-items:center;
+  background:rgba(43,42,38,.82);padding:5px;border-radius:999px;font-family:system-ui,-apple-system,sans-serif}
+.skissnav span{color:#f5f4ed;opacity:.7;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:0 8px 0 10px}
+.skissnav button{color:#f5f4ed;font-size:13px;font-weight:600;padding:7px 12px;border-radius:999px}
+.skissnav button.on{background:#f5f4ed;color:var(--antracit)}
+
+/* ---------- röstprovet (föräldrar, lugnt) ---------- */
+#rost{background:var(--cream);overflow:auto;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-user-select:text;user-select:text;touch-action:auto}
+#rost .head{background:var(--antracit);color:var(--cream);padding:36px 32px 28px;border-radius:0 0 28px 28px;display:flex;align-items:flex-end;gap:20px}
+#rost .head h1{margin:0;font:800 30px/1.1 system-ui,sans-serif}
+#rost .head p{margin:6px 0 0;opacity:.8;font-size:15px}
+#rost .back{background:rgba(245,244,237,.14);color:var(--cream);padding:10px 18px;border-radius:999px;font-weight:600;font-size:15px;margin-left:auto}
+#rost .wrap{max-width:1100px;margin:0 auto;padding:24px 24px 110px;display:grid;gap:16px}
+#rost .card{background:#fff;border-radius:20px;padding:20px 22px}
+#rost .lbl{display:inline-block;background:rgba(31,138,138,.14);color:var(--antracit);font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;margin-bottom:10px}
+#rost h3{margin:0 0 4px;font-size:18px}
+#rost .muted{color:#77756b;font-size:14px;margin:0 0 14px;line-height:1.45}
+#rost .ctrl{display:flex;flex-wrap:wrap;gap:18px;align-items:center}
+#rost select{font-size:16px;padding:10px 14px;border-radius:12px;border:1px solid rgba(77,76,68,.25);background:#fff;min-width:260px}
+#rost input[type=range]{width:180px;accent-color:var(--teal)}
+#rost .ctrl label{font-size:14px;font-weight:600;display:flex;align-items:center;gap:10px}
+#rost .warn{background:#fff3d6;border-radius:14px;padding:12px 14px;font-size:14px;line-height:1.45;margin-top:14px}
+#rost table{width:100%;border-collapse:collapse}
+#rost td,#rost th{padding:8px 6px;border-top:1px solid rgba(77,76,68,.14);text-align:left;vertical-align:middle}
+#rost th{font-size:12px;color:#77756b;font-weight:700;text-transform:uppercase;letter-spacing:.05em;border-top:0}
+#rost td.letter{font-family:var(--font);font-weight:700;font-size:30px;width:100px;white-space:nowrap}
+.say{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 14px;border-radius:999px;background:var(--cream);font-size:15px;font-weight:600}
+.say::before{content:"";width:0;height:0;border-left:11px solid var(--teal);border-top:7px solid transparent;border-bottom:7px solid transparent}
+.say code{font-family:var(--font);font-size:17px;font-weight:700}
+.say.playing{background:rgba(31,138,138,.18)}
+#rost .chips{display:flex;flex-wrap:wrap;gap:10px}
+#rost details.grp{border-top:1px solid rgba(77,76,68,.14);padding:10px 0}
+#rost details.grp summary{cursor:pointer;font-weight:700;font-size:16px;padding:6px 0;min-height:32px}
+#rost details.grp summary span{display:inline-block;background:rgba(31,138,138,.14);border-radius:999px;font-size:12px;padding:2px 8px;margin-left:6px}
+#rost details.grp .chips{margin-top:10px}
+#rost .free{display:flex;gap:10px}
+#rost .free input{flex:1;font-size:18px;padding:10px 14px;border-radius:12px;border:1px solid rgba(77,76,68,.25);font-family:var(--font)}
+#rost ol{margin:6px 0 0;padding-left:20px;line-height:1.6;font-size:15px}
+
+/* ---------- vänd paddan ---------- */
+.turn{display:none;position:fixed;inset:0;z-index:200;background:#4fa9e6;color:#fff;place-items:center;text-align:center;font-weight:700;font-size:28px;padding:30px}
+@media (orientation:portrait) and (max-width:1100px){ .turn{display:grid} }
+.turn svg{width:120px;height:120px;animation:rot 2s ease-in-out infinite}
+@keyframes rot{50%{transform:rotate(-90deg)}}
+</style>
+</head>
+<body>
+
+<nav class="skissnav" id="skissnav">
+  <span>Skiss 1</span>
+  <button data-go="start" class="on">Start</button>
+  <button data-go="tra">Trä</button>
+  <button data-go="sten">Sten</button>
+  <button data-go="bygg">Slottet</button>
+  <button data-go="rost">Röstprov</button>
+</nav>
+
+<!-- ======================= START ======================= -->
+<section class="screen on" id="start">
+  <div class="sky"></div>
+  <div class="sun" style="left:calc(var(--u)*12);top:calc(var(--u)*14)"></div>
+  <div class="cloud" data-cloud style="left:58%;top:16%;width:calc(var(--u)*24);height:calc(var(--u)*8)"></div>
+  <div class="cloud" data-cloud style="left:30%;top:30%;width:calc(var(--u)*16);height:calc(var(--u)*5.3)"></div>
+  <div class="ground"></div>
+  <div class="hud">
+    <div class="title">Ljuda ihop</div>
+    <div class="spacer"></div>
+    <div class="bag" data-bag></div>
+    <button class="gear" data-go="rost" aria-label="För vuxna"><svg viewBox="0 0 24 24"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm9 5.2v-2.4l-2.4-.5a7 7 0 0 0-.8-1.8l1.4-2-1.7-1.7-2 1.4a7 7 0 0 0-1.8-.8L13.2 3h-2.4l-.5 2.4a7 7 0 0 0-1.8.8l-2-1.4-1.7 1.7 1.4 2a7 7 0 0 0-.8 1.8L3 10.8v2.4l2.4.5c.2.6.4 1.2.8 1.8l-1.4 2 1.7 1.7 2-1.4c.6.4 1.2.6 1.8.8l.5 2.4h2.4l.5-2.4c.6-.2 1.2-.4 1.8-.8l2 1.4 1.7-1.7-1.4-2c.4-.6.6-1.2.8-1.8l2.4-.5Z"/></svg></button>
+  </div>
+  <div class="hero" id="heroStart" style="left:calc(var(--u)*8);bottom:calc(var(--g)*2)"></div>
+  <div class="namn" style="left:calc(var(--u)*16.75);bottom:calc(var(--g)*2 - var(--u)*5)">Åsk-Monstret</div>
+  <button class="bubble" id="hej" style="left:calc(var(--u)*5);bottom:calc(var(--g)*2 + var(--u)*27)">
+    <svg viewBox="0 0 24 24"><path fill="#1f8a8a" d="M4 9v6h4l5 5V4L8 9H4Zm12.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4Z"/></svg>
+    Hej Nils!
+  </button>
+  <div class="path" id="path"></div>
+  <button class="minitower" id="mini" data-go="bygg"><div class="lbl">Ditt slott</div><div class="tower" id="towerMini"></div></button>
+</section>
+
+<!-- ======================= TRÄ ======================= -->
+<section class="screen" id="tra">
+  <div class="sky"></div>
+  <div class="cloud" data-cloud style="left:8%;top:18%;width:calc(var(--u)*20);height:calc(var(--u)*6.6)"></div>
+  <div class="cloud" data-cloud style="left:72%;top:12%;width:calc(var(--u)*16);height:calc(var(--u)*5.3)"></div>
+  <div class="tree" data-tree="5" style="left:calc(var(--u)*2)"></div>
+  <div class="tree" data-tree="4" style="right:calc(var(--u)*6)"></div>
+  <div class="ground"></div>
+  <div class="hud">
+    <button class="iconbtn" data-go="start" aria-label="Hem"><svg viewBox="0 0 24 24"><path fill="#fdf8ea" d="M12 3 2 12h3v8h5v-5h4v5h5v-8h3L12 3Z"/></svg></button>
+    <div class="progress" id="traProg"></div>
+    <div class="spacer"></div>
+    <div class="bag" data-bag></div>
+  </div>
+  <div class="sign">
+    <div class="board"><div class="big" id="traBig">A</div></div>
+    <button class="speak" id="traSay" data-tex="iron" aria-label="Lyssna"><svg viewBox="0 0 24 24"><path fill="#2b2a26" d="M4 9v6h4l5 5V4L8 9H4Zm12.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4Zm-2.5-9v2.1a7 7 0 0 1 0 13.8V21a9 9 0 0 0 0-18Z"/></svg></button>
+  </div>
+  <div class="row" id="traRow"></div>
+</section>
+
+<!-- ======================= STEN ======================= -->
+<section class="screen" id="sten">
+  <div class="cave"></div>
+  <div class="ground stone"></div>
+  <div class="hud">
+    <button class="iconbtn" data-go="start" aria-label="Hem"><svg viewBox="0 0 24 24"><path fill="#fdf8ea" d="M12 3 2 12h3v8h5v-5h4v5h5v-8h3L12 3Z"/></svg></button>
+    <div class="progress" id="stenProg"></div>
+    <div class="spacer"></div>
+    <div class="bag" data-bag></div>
+  </div>
+  <div class="listen"><button class="speak huge" id="stenSay" data-tex="gold" aria-label="Lyssna"><svg viewBox="0 0 24 24"><path fill="#2b2a26" d="M4 9v6h4l5 5V4L8 9H4Zm12.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4Zm-2.5-9v2.1a7 7 0 0 1 0 13.8V21a9 9 0 0 0 0-18Z"/></svg></button></div>
+  <div class="modes" id="stenModes">
+    <button data-mode="ljud" class="on">Skiss: ljud (sten)</button>
+    <button data-mode="ord">Skiss: ord (guld)</button>
+  </div>
+  <div class="row" id="stenRow"></div>
+</section>
+
+<!-- ======================= TORNET ======================= -->
+<section class="screen" id="bygg">
+  <div class="sky"></div>
+  <div class="sun" style="right:calc(var(--u)*14);top:calc(var(--u)*16)"></div>
+  <div class="cloud" data-cloud style="left:12%;top:20%;width:calc(var(--u)*22);height:calc(var(--u)*7.3)"></div>
+  <div class="ground"></div>
+  <div class="hud">
+    <button class="iconbtn" data-go="start" aria-label="Hem"><svg viewBox="0 0 24 24"><path fill="#fdf8ea" d="M12 3 2 12h3v8h5v-5h4v5h5v-8h3L12 3Z"/></svg></button>
+    <div class="spacer"></div>
+    <div class="bag" data-bag></div>
+  </div>
+  <div class="hero" id="heroBygg" style="left:calc(50% - var(--u)*46);bottom:calc(var(--g)*2)"></div>
+  <button class="tower" id="towerBig" style="position:absolute;left:50%;bottom:calc(var(--g)*2);transform:translateX(-50%)"></button>
+  <div class="buildbtn"><button class="bigbtn" id="buildAll" aria-label="Bygg"><svg viewBox="0 0 24 24"><path fill="#fff" d="m14.6 2.4 7 7-2.1 2.1-1.4-1.4-2.8 2.8 1.4 1.4-2.1 2.1-1.4-1.4L5.6 22 2 18.4l7.6-7.6-1.4-1.4 2.1-2.1 1.4 1.4 2.8-2.8-1.4-1.4 1.5-2.1Z"/></svg><span class="badge" id="buildBadge">0</span></button></div>
+  <div class="skissbox">
+    <button id="fill6">Skiss: +6 av varje</button>
+    <button id="showAll">Skiss: visa färdigt slott</button>
+    <button id="clearTower">Skiss: töm slottet</button>
+  </div>
+</section>
+
+<!-- ======================= RÖSTPROV ======================= -->
+<section class="screen" id="rost">
+  <div class="head">
+    <div><h1>Röstprov</h1><p>Hur låter paddans svenska röst? Tryck och lyssna. Det här är bara för vuxna.</p></div>
+    <button class="back" data-go="start">Till spelet</button>
+  </div>
+  <div class="wrap">
+    <div class="card">
+      <div class="lbl">Sannas röst</div>
+      <h3>De inspelade ljuden (ElevenLabs)</h3>
+      <p class="muted">Gjorda en gång och sparade i appen. Öppna en grupp och tryck för att lyssna. Säg till om något låter fel, så görs just den filen om.</p>
+      <div id="clips"></div>
+    </div>
+
+    <div class="card">
+      <div class="lbl">Reserv: inbyggd röst</div>
+      <h3>Välj röst och hastighet</h3>
+      <p class="muted">Valet sparas på den här enheten och används i hela spelet. Långsamt är oftast bäst för en sexåring.</p>
+      <div class="ctrl">
+        <select id="voiceSel"></select>
+        <label>Hastighet <input type="range" id="rate" min="0.5" max="1.2" step="0.05"> <b id="rateV"></b></label>
+        <label>Tonhöjd <input type="range" id="pitch" min="0.7" max="1.5" step="0.05"> <b id="pitchV"></b></label>
+      </div>
+      <div class="warn" id="voiceInfo"></div>
+      <p class="muted" id="voiceIds" style="margin:10px 0 0;font-size:12px"></p>
+    </div>
+
+    <div class="card">
+      <div class="lbl">Det svåra</div>
+      <h3>Bokstäverna: namn och ljud</h3>
+      <p class="muted">Det vi vill veta: kan rösten säga <b>ljudet</b> ("mmm") och inte bara <b>namnet</b> ("em")? Prova kolumnerna och hör vilken som låter rätt. Den sista kolumnen är reserven: ljudet i ett ord.</p>
+      <table id="letterTable"><thead><tr><th></th><th>Namnet</th><th>Kort</th><th>Långt</th><th>Som i ett ord</th></tr></thead><tbody></tbody></table>
+    </div>
+
+    <div class="card">
+      <div class="lbl">Ljuda ihop</div>
+      <h3>Två ljud blir en stavelse</h3>
+      <p class="muted">Så låter det när ljuden ska smälta ihop.</p>
+      <div class="chips" id="syllables"></div>
+    </div>
+
+    <div class="card">
+      <div class="lbl">Ord och meningar</div>
+      <h3>Det här brukar rösten klara bra</h3>
+      <div class="chips" id="words"></div>
+      <p class="muted" style="margin-top:16px">Meningar</p>
+      <div class="chips" id="sentences"></div>
+    </div>
+
+    <div class="card">
+      <div class="lbl">Fritt</div>
+      <h3>Skriv vad som helst</h3>
+      <p class="muted">Prova egna stavningar, till exempel "mmmm", "mm" eller "m-m-m".</p>
+      <div class="free"><input id="freeText" value="Hej Nils! Ska vi gräva?"><button class="say" id="freeSay">Läs upp</button></div>
+    </div>
+
+    <div class="card">
+      <div class="lbl">Tips</div>
+      <h3>En bättre svensk röst i iPaden (gratis)</h3>
+      <ol>
+        <li>Inställningar → Hjälpmedel → Uppläst innehåll → Röster → Svenska.</li>
+        <li>Ladda ner en röst som heter <b>Förbättrad</b> eller <b>Premium</b> (till exempel Alva eller Oskar).</li>
+        <li>Starta om Safari och öppna den här sidan igen. Rösten syns då i listan ovan.</li>
+      </ol>
+      <p class="muted" style="margin:12px 0 0">Rösten finns redan i iPaden. Inget skickas någonstans och ingen AI-tjänst används.</p>
+    </div>
+  </div>
+</section>
+
+<div class="overlay" id="win"><div class="win">
+  <h2 id="winTitle">Bra jobbat!</h2>
+  <div class="loot" id="winLoot"></div>
+  <div class="btns">
+    <button class="bigbtn sec" id="winAgain" aria-label="Igen"><svg viewBox="0 0 24 24"><path fill="#4D4C44" d="M12 5V2L7 6l5 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7Z"/></svg></button>
+    <button class="bigbtn" id="winBuild" aria-label="Bygg"><svg viewBox="0 0 24 24"><path fill="#fff" d="m14.6 2.4 7 7-2.1 2.1-1.4-1.4-2.8 2.8 1.4 1.4-2.1 2.1-1.4-1.4L5.6 22 2 18.4l7.6-7.6-1.4-1.4 2.1-2.1 1.4 1.4 2.8-2.8-1.4-1.4 1.5-2.1Z"/></svg></button>
+  </div>
+</div></div>
+
+<div class="turn"><div><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2" fill="none" stroke="#fff" stroke-width="2"/><circle cx="12" cy="18.5" r="1" fill="#fff"/></svg><p>Vänd paddan på sidan</p></div></div>
+
+<script>
+/* =====================================================================
+   Ljuda ihop – skiss 1. Allt ritas av koden: inga bilder, ingen AI,
+   inget skickas någonstans. Rösten = iPadens inbyggda talsyntes.
+   ===================================================================== */
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+/* ---------------- pixeltexturer ---------------- */
+function rng(seed){ return () => (seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296; }
+const pick = (r, a) => a[Math.floor(r() * a.length)];
+function canvasTex(n, seed, fn){
+  const c = document.createElement('canvas'); c.width = c.height = n;
+  const x = c.getContext('2d'); const r = rng(seed);
+  const p = (i, j, col) => { x.fillStyle = col; x.fillRect(i, j, 1, 1); };
+  fn(p, r, n, x); return c.toDataURL();
+}
+function noise(cols, seed){ return canvasTex(16, seed, (p, r) => { for (let i=0;i<16;i++) for (let j=0;j<16;j++) p(i, j, pick(r, cols)); }); }
+function bevelBlock(base, light, dark, extra, seed){
+  return canvasTex(16, seed, (p, r) => {
+    for (let i=0;i<16;i++) for (let j=0;j<16;j++) p(i, j, pick(r, base));
+    for (let i=0;i<16;i++){ p(i,0,light); p(0,i,light); p(i,15,dark); p(15,i,dark); }
+    for (let i=1;i<15;i++){ p(i,1,light); p(1,i,light); p(i,14,dark); p(14,i,dark); }
+    extra && extra(p, r);
+  });
+}
+const T = {};
+T.plank = canvasTex(16, 3, (p, r) => {
+  const cols = ['#b8864b','#ad7c42','#c08f54','#b38147'];
+  for (let j=0;j<16;j++) for (let i=0;i<16;i++) p(i, j, pick(r, cols));
+  for (let row=0; row<4; row++){
+    const y = row*4+3; for (let i=0;i<16;i++) p(i, y, '#7d5628');
+    const sx = row % 2 ? 4 : 11; for (let k=0;k<3;k++) p(sx, row*4+k, '#8a6130');
+    for (let k=0;k<3;k++){ const gx = Math.floor(r()*16), gy = row*4 + Math.floor(r()*3); p(gx, gy, '#9c6e37'); }
+  }
+});
+T.stone = canvasTex(16, 11, (p, r) => {
+  for (let i=0;i<16;i++) for (let j=0;j<16;j++) p(i, j, pick(r, ['#8c8c8c','#828282','#979797','#8a8a8a','#9e9e9e']));
+  [[2,3],[3,3],[4,4],[10,2],[11,3],[11,4],[6,10],[7,10],[7,11],[13,12],[12,13],[2,13],[3,12]].forEach(([i,j]) => p(i, j, '#6a6a6a'));
+});
+T.cave = canvasTex(16, 21, (p, r) => {
+  for (let i=0;i<16;i++) for (let j=0;j<16;j++) p(i, j, pick(r, ['#4a4a4f','#444449','#505056','#3f3f44']));
+  [[3,4],[4,4],[5,5],[11,9],[12,10],[7,13],[8,13]].forEach(([i,j]) => p(i, j, '#323236'));
+});
+T.deep = noise(['#3a3a3f','#34343a','#404046'], 31);
+T.stonefloor = canvasTex(16, 41, (p, r) => {
+  for (let i=0;i<16;i++) for (let j=0;j<16;j++) p(i, j, pick(r, j < 3 ? ['#9a9a9a','#a4a4a4','#8e8e8e'] : ['#6a6a70','#626268','#707076']));
+});
+T.dirt = noise(['#8a5a35','#7d4f2d','#9a6940','#734828','#86562f'], 5);
+T.grass = canvasTex(16, 7, (p, r) => {
+  for (let i=0;i<16;i++) for (let j=0;j<16;j++) p(i, j, pick(r, ['#8a5a35','#7d4f2d','#9a6940','#734828']));
+  for (let i=0;i<16;i++){ const h = 3 + Math.floor(r()*3); for (let j=0;j<h;j++) p(i, j, pick(r, ['#5aa83a','#4e9b31','#69b947','#5fae3e'])); }
+});
+T.leaves = canvasTex(16, 13, (p, r) => { for (let i=0;i<16;i++) for (let j=0;j<16;j++) p(i, j, pick(r, ['#3e8a2c','#357a25','#4a9a36','#2f6e21','#44923a'])); });
+T.log = canvasTex(16, 17, (p, r) => { for (let i=0;i<16;i++) for (let j=0;j<16;j++) p(i, j, (i % 4 === 0) ? '#4f3520' : pick(r, ['#6b4a2b','#5f4126','#74522f'])); });
+T.iron  = bevelBlock(['#d4d4d4','#cbcbcb','#dcdcdc'], '#f4f4f4', '#9a9a9a', p => { [[4,4],[11,4],[4,11],[11,11]].forEach(([i,j]) => { p(i,j,'#8a8a8a'); p(i+1,j,'#b0b0b0'); }); }, 51);
+T.gold  = bevelBlock(['#f2c12e','#e9b421','#f7cd45'], '#fff1a3', '#b4850d', p => { for (let k=0;k<5;k++){ p(4+k, 3+k, '#fff6c6'); p(5+k, 3+k, '#ffe680'); } }, 61);
+T.diamant = bevelBlock(['#4fdedb','#3fcfcd','#69e9e6'], '#d6fffd', '#1f9a9a', p => { for (let k=2;k<14;k++){ p(k, k, '#a8f7f5'); p(15-k, k, '#2fbaba'); } p(7,7,'#ffffff'); p(8,8,'#ffffff'); }, 71);
+T.crack = canvasTex(16, 0, p => {
+  [[8,2],[8,3],[7,4],[7,5],[8,6],[9,7],[9,8],[8,9],[10,9],[11,10],[6,7],[5,8],[4,8],[8,10],[7,11],[7,12],[12,11],[13,12],[3,9]].forEach(([i,j]) => p(i, j, 'rgba(30,20,10,.85)'));
+});
+T.lock = canvasTex(10, 0, p => {
+  const m = ['..####....','.#....#...','.#....#...','########..','#..##..#..','#..##..#..','#...#..#..','########..'];
+  m.forEach((row, j) => [...row].forEach((ch, i) => { if (ch === '#') p(i, j + 1, '#2b2a26'); }));
+  for (let i=1;i<7;i++) for (let j=5;j<8;j++) if (!['4,5','4,6','3,5','3,6','4,7'].includes(i+','+j)) p(i, j, '#f2c12e');
+});
+T.cloud = canvasTex(12, 0, p => {
+  ['...####.....','..######.##.','.###########','############'].forEach((row, j) => [...row].forEach((ch, i) => { if (ch === '#') p(i, j, j === 3 ? '#e6f3fb' : '#ffffff'); }));
+});
+T.arrow = canvasTex(7, 0, p => {
+  ['..###..','..###..','..###..','#######','.#####.','..###..','...#...'].forEach((row, j) => [...row].forEach((ch, i) => { if (ch === '#') p(i, j, '#ffd84a'); }));
+});
+T.sack = canvasTex(12, 0, p => {
+  const m = ['....dddd....','...d....d...','..cccccccc..','.bbbbbbbbbb.','bbbbbbbbbbbb','bbbbllllbbbb','bbbbl..lbbbb','bbbbllllbbbb','bbbbbbbbbbbb','bbbbbbbbbbbb','.bbbbbbbbbb.','..dddddddd..'];
+  const c = { d:'#5e3b1d', c:'#c99a5b', b:'#9a6a35', l:'#e8c06a', '.':null };
+  m.forEach((row, j) => [...row].forEach((ch, i) => { if (c[ch]) p(i, j, c[ch]); }));
+});
+/* Egen figur (12x16): gruvhjälm med lampa, röd overall. */
+T.hero = (() => {
+  /* Åsk-Monstret (namnet valt av Nils 26/11): eget grönt blockmonster med åskhjälm och blixt. Medvetet INTE en creeper: vita ögon med pupiller,
+     glad mun med tänder, armar och korta ben. */
+  const c = document.createElement('canvas'); c.width = 14; c.height = 16; const x = c.getContext('2d');
+  const m = [
+    '.....HHHH.....',
+    '....HHHYHH....',
+    '...HHHYYHHH...',
+    '..hhhhYhhhhh..',
+    '.GGGGGlGGGGGG.',
+    '.GWWWGGGGWWWG.',
+    '.GWEWGGlGWEWG.',
+    '.GWWWGGGGWWWG.',
+    '.GGGGGGGGGlGG.',
+    'GGGMMMMMMMMGGG',
+    'GGGMTMMMMTMGGG',
+    'G.GGMMMMMMGG.G',
+    '.gGGlGGGGGGlg.',
+    '.gggggggggggg.',
+    '..KKK....KKK..',
+    '..KKK....KKK..'];
+  const col = { H:'#45506e', h:'#2c3550', Y:'#ffe14d', G:'#5cc23a', l:'#8be06a', g:'#3f8f26', W:'#ffffff', E:'#2b2a26', M:'#8c2f22', T:'#ffffff', K:'#2f6e1f' };
+  m.forEach((row, j) => [...row].forEach((ch, i) => { if (col[ch]) { x.fillStyle = col[ch]; x.fillRect(i, j, 1, 1); } }));
+  return c.toDataURL();
+})();
+
+const MAT = {
+  tra:     { namn:'trä',     tex:T.plank,   steg:'A och a' },
+  sten:    { namn:'sten',    tex:T.stone,   steg:'ljuden' },
+  jarn:    { namn:'järn',    tex:T.iron,    steg:'ma, so' },
+  guld:    { namn:'guld',    tex:T.gold,    steg:'sol, mat' },
+  diamant: { namn:'diamant', tex:T.diamant, steg:'meningar' },
+};
+const ORDN = ['tra','sten','jarn','guld','diamant'];
+
+const root = document.documentElement.style;
+Object.entries({ plank:T.plank, stone:T.stone, cave:T.cave, deep:T.deep, stonefloor:T.stonefloor, dirt:T.dirt, grass:T.grass,
+  leaves:T.leaves, log:T.log, crack:T.crack, lock:T.lock }).forEach(([k, v]) => root.setProperty('--t-' + k, `url(${v})`));
+$$('[data-cloud]').forEach(el => el.style.backgroundImage = `url(${T.cloud})`);
+$$('.hero').forEach(el => el.style.backgroundImage = `url(${T.hero})`);
+$$('[data-tex]').forEach(el => el.style.backgroundImage = `url(${T[el.dataset.tex]})`);
+$$('[data-tree]').forEach(el => {
+  const h = +el.dataset.tree; const g = 'var(--g)';
+  el.style.width = `calc(${g}*3)`; el.style.height = `calc(${g}*${h + 2})`;
+  el.innerHTML = `<div class="log" style="left:calc(${g});bottom:0;width:calc(${g});height:calc(${g}*${h})"></div>
+                  <div class="leaves" style="left:0;bottom:calc(${g}*${h - 1});width:calc(${g}*3);height:calc(${g}*2)"></div>
+                  <div class="leaves" style="left:calc(${g});bottom:calc(${g}*${h + 1});width:calc(${g});height:calc(${g})"></div>`;
+});
+
+/* ---------------- ljud: talsyntes + små effektljud ---------------- */
+// Safari kallar både enkla och premium-rösten "Alva" – skillnaden syns bara i voiceURI
+const kvalitet = v => { if (!v) return 0; const s = (v.name + ' ' + v.voiceURI).toLowerCase(); return /premium/.test(s) ? 3 : /enhanced|förbättrad/.test(s) ? 2 : 1; };
+const etikett = v => v.name.replace(/\s*\((premium|enhanced|förbättrad)\)/i, '') + ({ 3:' (Premium)', 2:' (Förbättrad)', 1:' (enkel)' })[kvalitet(v)];
+const Tal = {
+  voices: [], voice: null, rate: .8, pitch: 1.1,
+  ok: 'speechSynthesis' in window,
+  load(){
+    if (!this.ok) return;
+    const all = speechSynthesis.getVoices();
+    this.voices = all.filter(v => /^sv/i.test(v.lang));
+    const saved = JSON.parse(localStorage.getItem('ljuda-ihop-rost') || '{}');
+    if (saved.rate) this.rate = saved.rate;
+    if (saved.pitch) this.pitch = saved.pitch;
+    const best = [...this.voices].sort((a, b) => kvalitet(b) - kvalitet(a))[0] || null;
+    const sparad = (saved.idx != null && this.voices[saved.idx] && this.voices[saved.idx].voiceURI === saved.voice) ? this.voices[saved.idx] : this.voices.find(v => v.voiceURI === saved.voice);
+    // en sparad enkel röst får ge vika om en bättre har laddats ner sedan dess
+    this.voice = (sparad && kvalitet(sparad) >= kvalitet(best)) ? sparad : best;
+    renderVoicePanel();
+  },
+  save(){ localStorage.setItem('ljuda-ihop-rost', JSON.stringify({ voice: this.voice && this.voice.voiceURI, idx: this.voices.indexOf(this.voice), rate: this.rate, pitch: this.pitch })); },
+  say(text, btn){
+    if (!this.ok) return Promise.resolve();
+    speechSynthesis.cancel();
+    return new Promise(res => {
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'sv-SE'; if (this.voice) u.voice = this.voice;
+      u.rate = this.rate; u.pitch = this.pitch;
+      btn && btn.classList.add(btn.classList.contains('say') ? 'playing' : 'talking');
+      const done = () => { btn && btn.classList.remove('playing', 'talking'); res(); };
+      u.onend = done; u.onerror = done;
+      setTimeout(() => speechSynthesis.speak(u), 60);
+      setTimeout(done, 6000);
+    });
+  },
+};
+if (Tal.ok){ speechSynthesis.cancel(); speechSynthesis.onvoiceschanged = () => Tal.load(); }
+// tyst när sidan stängs eller byts, så att inget fortsätter prata
+window.addEventListener('pagehide', () => Tal.ok && speechSynthesis.cancel());
+
+/* Inspelade ljud (ElevenLabs, rösten Sanna Hartfield, gjorda EN gång av gor_ljud.py).
+   Spelas från filerna i ljud/. Saknas en fil läses texten med inbyggd röst som reserv. */
+const LJUDLISTA = [{"id": "tra-hitta-a", "text": "Hitta lilla a.", "grupp": "Omgång 1", "visa": "Hitta lilla a."}, {"id": "tra-hitta-m", "text": "Hitta lilla m.", "grupp": "Omgång 1", "visa": "Hitta lilla m."}, {"id": "tra-hitta-s", "text": "Hitta lilla s.", "grupp": "Omgång 1", "visa": "Hitta lilla s."}, {"id": "tra-hitta-o", "text": "Hitta lilla o.", "grupp": "Omgång 1", "visa": "Hitta lilla o."}, {"id": "tra-hitta-l", "text": "Hitta lilla l.", "grupp": "Omgång 1", "visa": "Hitta lilla l."}, {"id": "tra-hitta-i", "text": "Hitta lilla i.", "grupp": "Omgång 1", "visa": "Hitta lilla i."}, {"id": "ratt-ja", "text": "Ja!", "grupp": "Omgång 1", "visa": "Ja!"}, {"id": "ratt-snyggt", "text": "Snyggt!", "grupp": "Omgång 1", "visa": "Snyggt!"}, {"id": "ratt-ratt", "text": "Rätt!", "grupp": "Omgång 1", "visa": "Rätt!"}, {"id": "fel-prova", "text": "Inte den. Prova igen!", "grupp": "Omgång 1", "visa": "Inte den. Prova igen!"}, {"id": "fel-lyssna", "text": "Inte den. Lyssna igen.", "grupp": "Omgång 1", "visa": "Inte den. Lyssna igen."}, {"id": "vinst-tra", "text": "Bra jobbat, Nils! Du fick sex träblock. Nu kan du bygga!", "grupp": "Omgång 1", "visa": "Bra jobbat, Nils! Du fick sex träblock. Nu kan du bygga!"}, {"id": "vinst-sten", "text": "Bra jobbat, Nils! Du fick sex stenblock. Nu kan du bygga!", "grupp": "Omgång 1", "visa": "Bra jobbat, Nils! Du fick sex stenblock. Nu kan du bygga!"}, {"id": "hej", "text": "Hej Nils! Jag är Åsk-Monstret. Ska vi gräva? Tryck på träblocket!", "grupp": "Omgång 1", "visa": "Hej Nils! Jag är Åsk-Monstret. Ska vi gräva? Tryck på träblocket!"}, {"id": "torn-tryck", "text": "Tryck på slottet för att bygga!", "grupp": "Omgång 1", "visa": "Tryck på slottet för att bygga!"}, {"id": "torn-vaxer", "text": "Titta! Slottet växer!", "grupp": "Omgång 1", "visa": "Titta! Slottet växer!"}, {"id": "torn-grav", "text": "Gräv fler block först!", "grupp": "Omgång 1", "visa": "Gräv fler block först!"}, {"id": "last", "text": "Den är låst. Börja med trä!", "grupp": "Omgång 1", "visa": "Den är låst. Börja med trä!"}, {"id": "ljud-m", "text": "Mmmmm. Som i mamma.", "grupp": "Omgång 1", "visa": "Mmmmm. Som i mamma."}, {"id": "ljud-s", "text": "Sssss. Som i sol.", "grupp": "Omgång 1", "visa": "Sssss. Som i sol."}, {"id": "ljud-o", "text": "Ooooo. Som i orm.", "grupp": "Omgång 1", "visa": "Ooooo. Som i orm."}, {"id": "ljud-a", "text": "Aaaaa. Som i apa.", "grupp": "Omgång 1", "visa": "Aaaaa. Som i apa."}, {"id": "ljud-l", "text": "Lllll. Som i lampa.", "grupp": "Omgång 1", "visa": "Lllll. Som i lampa."}, {"id": "ljud-i", "text": "Iiiii. Som i is.", "grupp": "Omgång 1", "visa": "Iiiii. Som i is."}, {"id": "ord-sol", "text": "sol", "grupp": "Omgång 1", "visa": "sol"}, {"id": "ord-mat", "text": "mat", "grupp": "Omgång 1", "visa": "mat"}, {"id": "ord-mus", "text": "mus", "grupp": "Omgång 1", "visa": "mus"}, {"id": "ord-is", "text": "is", "grupp": "Omgång 1", "visa": "is"}, {"id": "ord-ros", "text": "ros", "grupp": "Omgång 1", "visa": "ros"}, {"id": "ord-ost", "text": "ost", "grupp": "Omgång 1", "visa": "ost"}, {"id": "tra-hitta-b", "text": "Hitta lilla b.", "grupp": "Bokstäver", "visa": "Hitta lilla b."}, {"id": "ljud-b", "text": "B-b-boll.", "grupp": "Bokstäver", "visa": "B-b-boll."}, {"id": "tra-hitta-c", "text": "Hitta lilla c.", "grupp": "Bokstäver", "visa": "Hitta lilla c."}, {"id": "tra-hitta-d", "text": "Hitta lilla d.", "grupp": "Bokstäver", "visa": "Hitta lilla d."}, {"id": "ljud-d", "text": "D-d-docka.", "grupp": "Bokstäver", "visa": "D-d-docka."}, {"id": "tra-hitta-e", "text": "Hitta lilla e.", "grupp": "Bokstäver", "visa": "Hitta lilla e."}, {"id": "ljud-e", "text": "Eeeee. Som i ekorre.", "grupp": "Bokstäver", "visa": "Eeeee. Som i ekorre."}, {"id": "tra-hitta-f", "text": "Hitta lilla f.", "grupp": "Bokstäver", "visa": "Hitta lilla f."}, {"id": "ljud-f", "text": "Fffff. Som i fisk.", "grupp": "Bokstäver", "visa": "Fffff. Som i fisk."}, {"id": "tra-hitta-g", "text": "Hitta lilla g.", "grupp": "Bokstäver", "visa": "Hitta lilla g."}, {"id": "ljud-g", "text": "G-g-gris.", "grupp": "Bokstäver", "visa": "G-g-gris."}, {"id": "tra-hitta-h", "text": "Hitta lilla h.", "grupp": "Bokstäver", "visa": "Hitta lilla h."}, {"id": "ljud-h", "text": "H-h-hus.", "grupp": "Bokstäver", "visa": "H-h-hus."}, {"id": "tra-hitta-j", "text": "Hitta lilla j.", "grupp": "Bokstäver", "visa": "Hitta lilla j."}, {"id": "ljud-j", "text": "Jjjjj. Som i jul.", "grupp": "Bokstäver", "visa": "Jjjjj. Som i jul."}, {"id": "tra-hitta-k", "text": "Hitta lilla k.", "grupp": "Bokstäver", "visa": "Hitta lilla k."}, {"id": "ljud-k", "text": "K-k-katt.", "grupp": "Bokstäver", "visa": "K-k-katt."}, {"id": "tra-hitta-n", "text": "Hitta lilla n.", "grupp": "Bokstäver", "visa": "Hitta lilla n."}, {"id": "ljud-n", "text": "Nnnnn. Som i näsa.", "grupp": "Bokstäver", "visa": "Nnnnn. Som i näsa."}, {"id": "tra-hitta-p", "text": "Hitta lilla p.", "grupp": "Bokstäver", "visa": "Hitta lilla p."}, {"id": "ljud-p", "text": "P-p-pappa.", "grupp": "Bokstäver", "visa": "P-p-pappa."}, {"id": "tra-hitta-q", "text": "Hitta lilla q.", "grupp": "Bokstäver", "visa": "Hitta lilla q."}, {"id": "tra-hitta-r", "text": "Hitta lilla r.", "grupp": "Bokstäver", "visa": "Hitta lilla r."}, {"id": "ljud-r", "text": "Rrrrr. Som i ros.", "grupp": "Bokstäver", "visa": "Rrrrr. Som i ros."}, {"id": "tra-hitta-t", "text": "Hitta lilla t.", "grupp": "Bokstäver", "visa": "Hitta lilla t."}, {"id": "ljud-t", "text": "T-t-tåg.", "grupp": "Bokstäver", "visa": "T-t-tåg."}, {"id": "tra-hitta-u", "text": "Hitta lilla u.", "grupp": "Bokstäver", "visa": "Hitta lilla u."}, {"id": "ljud-u", "text": "Uuuuu. Som i uggla.", "grupp": "Bokstäver", "visa": "Uuuuu. Som i uggla."}, {"id": "tra-hitta-v", "text": "Hitta lilla v.", "grupp": "Bokstäver", "visa": "Hitta lilla v."}, {"id": "ljud-v", "text": "Vvvvv. Som i val.", "grupp": "Bokstäver", "visa": "Vvvvv. Som i val."}, {"id": "tra-hitta-w", "text": "Hitta lilla w.", "grupp": "Bokstäver", "visa": "Hitta lilla w."}, {"id": "tra-hitta-x", "text": "Hitta lilla x.", "grupp": "Bokstäver", "visa": "Hitta lilla x."}, {"id": "tra-hitta-y", "text": "Hitta lilla y.", "grupp": "Bokstäver", "visa": "Hitta lilla y."}, {"id": "ljud-y", "text": "Yyyyy. Som i yxa.", "grupp": "Bokstäver", "visa": "Yyyyy. Som i yxa."}, {"id": "tra-hitta-z", "text": "Hitta lilla z.", "grupp": "Bokstäver", "visa": "Hitta lilla z."}, {"id": "tra-hitta-å", "text": "Hitta lilla å.", "grupp": "Bokstäver", "visa": "Hitta lilla å."}, {"id": "ljud-å", "text": "Åååå. Som i ål.", "grupp": "Bokstäver", "visa": "Åååå. Som i ål."}, {"id": "tra-hitta-ä", "text": "Hitta lilla ä.", "grupp": "Bokstäver", "visa": "Hitta lilla ä."}, {"id": "ljud-ä", "text": "Ääää. Som i älg.", "grupp": "Bokstäver", "visa": "Ääää. Som i älg."}, {"id": "tra-hitta-ö", "text": "Hitta lilla ö.", "grupp": "Bokstäver", "visa": "Hitta lilla ö."}, {"id": "ljud-ö", "text": "Öööö. Som i öra.", "grupp": "Bokstäver", "visa": "Öööö. Som i öra."}, {"id": "stav-ma", "text": "ma", "grupp": "Stavelser", "visa": "ma"}, {"id": "stav-mo", "text": "mo", "grupp": "Stavelser", "visa": "mo"}, {"id": "stav-mi", "text": "mi", "grupp": "Stavelser", "visa": "mi"}, {"id": "stav-me", "text": "me", "grupp": "Stavelser", "visa": "me"}, {"id": "stav-mu", "text": "mu", "grupp": "Stavelser", "visa": "mu"}, {"id": "stav-må", "text": "må", "grupp": "Stavelser", "visa": "må"}, {"id": "stav-sa", "text": "sa", "grupp": "Stavelser", "visa": "sa"}, {"id": "stav-so", "text": "so", "grupp": "Stavelser", "visa": "so ✎ rättad"}, {"id": "stav-si", "text": "si", "grupp": "Stavelser", "visa": "si"}, {"id": "stav-se", "text": "se", "grupp": "Stavelser", "visa": "se"}, {"id": "stav-su", "text": "su", "grupp": "Stavelser", "visa": "su"}, {"id": "stav-så", "text": "så", "grupp": "Stavelser", "visa": "så"}, {"id": "stav-la", "text": "la", "grupp": "Stavelser", "visa": "la"}, {"id": "stav-lo", "text": "lo", "grupp": "Stavelser", "visa": "lo"}, {"id": "stav-li", "text": "li", "grupp": "Stavelser", "visa": "li"}, {"id": "stav-le", "text": "le", "grupp": "Stavelser", "visa": "le"}, {"id": "stav-lu", "text": "lu", "grupp": "Stavelser", "visa": "lu"}, {"id": "stav-lå", "text": "lå", "grupp": "Stavelser", "visa": "lå"}, {"id": "stav-ra", "text": "ra", "grupp": "Stavelser", "visa": "ra"}, {"id": "stav-ro", "text": "ro", "grupp": "Stavelser", "visa": "ro"}, {"id": "stav-ri", "text": "ri", "grupp": "Stavelser", "visa": "ri"}, {"id": "stav-re", "text": "re", "grupp": "Stavelser", "visa": "re"}, {"id": "stav-ru", "text": "ru", "grupp": "Stavelser", "visa": "ru"}, {"id": "stav-rå", "text": "rå", "grupp": "Stavelser", "visa": "rå"}, {"id": "stav-na", "text": "na", "grupp": "Stavelser", "visa": "na"}, {"id": "stav-no", "text": "no", "grupp": "Stavelser", "visa": "no"}, {"id": "stav-ni", "text": "ni", "grupp": "Stavelser", "visa": "ni"}, {"id": "stav-ne", "text": "ne", "grupp": "Stavelser", "visa": "ne"}, {"id": "stav-nu", "text": "nu", "grupp": "Stavelser", "visa": "nu"}, {"id": "stav-nå", "text": "nå", "grupp": "Stavelser", "visa": "nå"}, {"id": "stav-fa", "text": "fa", "grupp": "Stavelser", "visa": "fa"}, {"id": "stav-fo", "text": "fo", "grupp": "Stavelser", "visa": "fo"}, {"id": "stav-fi", "text": "fi", "grupp": "Stavelser", "visa": "fi"}, {"id": "stav-fe", "text": "fe", "grupp": "Stavelser", "visa": "fe"}, {"id": "stav-fu", "text": "fu", "grupp": "Stavelser", "visa": "fu"}, {"id": "stav-få", "text": "få", "grupp": "Stavelser", "visa": "få"}, {"id": "stav-va", "text": "va", "grupp": "Stavelser", "visa": "va"}, {"id": "stav-vo", "text": "vo", "grupp": "Stavelser", "visa": "vo"}, {"id": "stav-vi", "text": "vi", "grupp": "Stavelser", "visa": "vi"}, {"id": "stav-ve", "text": "ve", "grupp": "Stavelser", "visa": "ve"}, {"id": "stav-vu", "text": "vu", "grupp": "Stavelser", "visa": "vu"}, {"id": "stav-vå", "text": "vå", "grupp": "Stavelser", "visa": "vå"}, {"id": "ord-ko", "text": "ko", "grupp": "Korta ord", "visa": "ko ✎ rättad"}, {"id": "ord-ål", "text": "ål", "grupp": "Korta ord", "visa": "ål"}, {"id": "ord-på", "text": "på", "grupp": "Korta ord", "visa": "på"}, {"id": "ord-nu", "text": "nu", "grupp": "Korta ord", "visa": "nu"}, {"id": "ord-ja", "text": "ja", "grupp": "Korta ord", "visa": "ja ✎ rättad"}, {"id": "ord-se", "text": "se", "grupp": "Korta ord", "visa": "se"}, {"id": "ord-le", "text": "le", "grupp": "Korta ord", "visa": "le ✎ rättad"}, {"id": "ord-gå", "text": "gå", "grupp": "Korta ord", "visa": "gå"}, {"id": "ord-må", "text": "må", "grupp": "Korta ord", "visa": "må"}, {"id": "ord-få", "text": "få", "grupp": "Korta ord", "visa": "få"}, {"id": "ord-bo", "text": "bo", "grupp": "Korta ord", "visa": "bo ✎ rättad"}, {"id": "ord-ny", "text": "ny", "grupp": "Korta ord", "visa": "ny"}, {"id": "ord-sy", "text": "sy", "grupp": "Korta ord", "visa": "sy ✎ rättad"}, {"id": "ord-ro", "text": "ro", "grupp": "Korta ord", "visa": "ro ✎ rättad"}, {"id": "ord-bi", "text": "bi", "grupp": "Korta ord", "visa": "bi"}, {"id": "ord-tå", "text": "tå", "grupp": "Korta ord", "visa": "tå"}, {"id": "ord-ek", "text": "ek", "grupp": "Korta ord", "visa": "ek ✎ rättad"}, {"id": "ord-ram", "text": "ram", "grupp": "Korta ord", "visa": "ram"}, {"id": "ord-mal", "text": "mal", "grupp": "Korta ord", "visa": "mal"}, {"id": "ord-sal", "text": "sal", "grupp": "Korta ord", "visa": "sal"}, {"id": "ord-mil", "text": "mil", "grupp": "Korta ord", "visa": "mil"}, {"id": "ord-ris", "text": "ris", "grupp": "Korta ord", "visa": "ris"}, {"id": "ord-ler", "text": "ler", "grupp": "Korta ord", "visa": "ler"}, {"id": "ord-mor", "text": "mor", "grupp": "Korta ord", "visa": "mor"}, {"id": "ord-far", "text": "far", "grupp": "Korta ord", "visa": "far"}, {"id": "ord-bil", "text": "bil", "grupp": "Korta ord", "visa": "bil"}, {"id": "ord-bok", "text": "bok", "grupp": "Korta ord", "visa": "bok"}, {"id": "ord-hus", "text": "hus", "grupp": "Korta ord", "visa": "hus"}, {"id": "ord-hav", "text": "hav", "grupp": "Korta ord", "visa": "hav"}, {"id": "ord-hal", "text": "hal", "grupp": "Korta ord", "visa": "hal"}, {"id": "ord-kul", "text": "kul", "grupp": "Korta ord", "visa": "kul"}, {"id": "ord-kam", "text": "kam", "grupp": "Korta ord", "visa": "kam ✎ rättad"}, {"id": "ord-lök", "text": "lök", "grupp": "Korta ord", "visa": "lök"}, {"id": "ord-lås", "text": "lås", "grupp": "Korta ord", "visa": "lås"}, {"id": "ord-lus", "text": "lus", "grupp": "Korta ord", "visa": "lus"}, {"id": "ord-lov", "text": "lov", "grupp": "Korta ord", "visa": "lov"}, {"id": "ord-lim", "text": "lim", "grupp": "Korta ord", "visa": "lim"}, {"id": "ord-lin", "text": "lin", "grupp": "Korta ord", "visa": "lin"}, {"id": "ord-lur", "text": "lur", "grupp": "Korta ord", "visa": "lur"}, {"id": "ord-mos", "text": "mos", "grupp": "Korta ord", "visa": "mos ✎ rättad"}, {"id": "ord-mur", "text": "mur", "grupp": "Korta ord", "visa": "mur"}, {"id": "ord-mun", "text": "mun", "grupp": "Korta ord", "visa": "mun ✎ rättad"}, {"id": "ord-mås", "text": "mås", "grupp": "Korta ord", "visa": "mås"}, {"id": "ord-nos", "text": "nos", "grupp": "Korta ord", "visa": "nos ✎ rättad"}, {"id": "ord-nål", "text": "nål", "grupp": "Korta ord", "visa": "nål"}, {"id": "ord-rot", "text": "rot", "grupp": "Korta ord", "visa": "rot"}, {"id": "ord-rök", "text": "rök", "grupp": "Korta ord", "visa": "rök"}, {"id": "ord-rum", "text": "rum", "grupp": "Korta ord", "visa": "rum"}, {"id": "ord-sil", "text": "sil", "grupp": "Korta ord", "visa": "sil"}, {"id": "ord-sur", "text": "sur", "grupp": "Korta ord", "visa": "sur"}, {"id": "ord-sus", "text": "sus", "grupp": "Korta ord", "visa": "sus"}, {"id": "ord-säl", "text": "säl", "grupp": "Korta ord", "visa": "säl"}, {"id": "ord-tak", "text": "tak", "grupp": "Korta ord", "visa": "tak ✎ rättad"}, {"id": "ord-tal", "text": "tal", "grupp": "Korta ord", "visa": "tal"}, {"id": "ord-tio", "text": "tio", "grupp": "Korta ord", "visa": "tio"}, {"id": "ord-tum", "text": "tum", "grupp": "Korta ord", "visa": "tum"}, {"id": "ord-tår", "text": "tår", "grupp": "Korta ord", "visa": "tår"}, {"id": "ord-tåg", "text": "tåg", "grupp": "Korta ord", "visa": "tåg"}, {"id": "ord-tid", "text": "tid", "grupp": "Korta ord", "visa": "tid"}, {"id": "ord-tur", "text": "tur", "grupp": "Korta ord", "visa": "tur"}, {"id": "ord-val", "text": "val", "grupp": "Korta ord", "visa": "val"}, {"id": "ord-väg", "text": "väg", "grupp": "Korta ord", "visa": "väg"}, {"id": "ord-öra", "text": "öra", "grupp": "Korta ord", "visa": "öra"}, {"id": "ord-öga", "text": "öga", "grupp": "Korta ord", "visa": "öga"}, {"id": "ord-apa", "text": "apa", "grupp": "Korta ord", "visa": "apa ✎ rättad"}, {"id": "ord-eld", "text": "eld", "grupp": "Korta ord", "visa": "eld"}, {"id": "ord-fin", "text": "fin", "grupp": "Korta ord", "visa": "fin"}, {"id": "ord-fot", "text": "fot", "grupp": "Korta ord", "visa": "fot"}, {"id": "ord-fem", "text": "fem", "grupp": "Korta ord", "visa": "fem"}, {"id": "ord-fyr", "text": "fyr", "grupp": "Korta ord", "visa": "fyr"}, {"id": "ord-ful", "text": "ful", "grupp": "Korta ord", "visa": "ful"}, {"id": "ord-gul", "text": "gul", "grupp": "Korta ord", "visa": "gul"}, {"id": "ord-gås", "text": "gås", "grupp": "Korta ord", "visa": "gås"}, {"id": "ord-hök", "text": "hök", "grupp": "Korta ord", "visa": "hök"}, {"id": "ord-hel", "text": "hel", "grupp": "Korta ord", "visa": "hel"}, {"id": "ord-hem", "text": "hem", "grupp": "Korta ord", "visa": "hem"}, {"id": "ord-kör", "text": "kör", "grupp": "Korta ord", "visa": "kör"}, {"id": "ord-kol", "text": "kol", "grupp": "Korta ord", "visa": "kol"}, {"id": "ord-lek", "text": "lek", "grupp": "Korta ord", "visa": "lek"}, {"id": "ord-mål", "text": "mål", "grupp": "Korta ord", "visa": "mål"}, {"id": "ord-nät", "text": "nät", "grupp": "Korta ord", "visa": "nät"}, {"id": "ord-par", "text": "par", "grupp": "Korta ord", "visa": "par"}, {"id": "ord-pil", "text": "pil", "grupp": "Korta ord", "visa": "pil"}, {"id": "ord-pip", "text": "pip", "grupp": "Korta ord", "visa": "pip"}, {"id": "ord-ras", "text": "ras", "grupp": "Korta ord", "visa": "ras"}, {"id": "ord-sko", "text": "sko", "grupp": "Korta ord", "visa": "sko ✎ rättad"}, {"id": "ord-tom", "text": "tom", "grupp": "Korta ord", "visa": "tom"}, {"id": "ord-vit", "text": "vit", "grupp": "Korta ord", "visa": "vit"}, {"id": "ord-våg", "text": "våg", "grupp": "Korta ord", "visa": "våg"}, {"id": "ord-vän", "text": "vän", "grupp": "Korta ord", "visa": "vän"}, {"id": "ord-ägg", "text": "ägg", "grupp": "Korta ord", "visa": "ägg"}, {"id": "ord-lamm", "text": "lamm", "grupp": "Korta ord", "visa": "lamm"}, {"id": "ord-lampa", "text": "lampa", "grupp": "Längre ord", "visa": "lampa"}, {"id": "ord-mamma", "text": "mamma", "grupp": "Längre ord", "visa": "mamma"}, {"id": "ord-pappa", "text": "pappa", "grupp": "Längre ord", "visa": "pappa"}, {"id": "ord-kaka", "text": "kaka", "grupp": "Längre ord", "visa": "kaka"}, {"id": "ord-bulle", "text": "bulle", "grupp": "Längre ord", "visa": "bulle"}, {"id": "ord-fisk", "text": "fisk", "grupp": "Längre ord", "visa": "fisk"}, {"id": "ord-katt", "text": "katt", "grupp": "Längre ord", "visa": "katt"}, {"id": "ord-hund", "text": "hund", "grupp": "Längre ord", "visa": "hund"}, {"id": "ord-häst", "text": "häst", "grupp": "Längre ord", "visa": "häst"}, {"id": "ord-hatt", "text": "hatt", "grupp": "Längre ord", "visa": "hatt"}, {"id": "ord-sten", "text": "sten", "grupp": "Längre ord", "visa": "sten"}, {"id": "ord-torn", "text": "torn", "grupp": "Längre ord", "visa": "torn"}, {"id": "ord-guld", "text": "guld", "grupp": "Längre ord", "visa": "guld"}, {"id": "ord-järn", "text": "järn", "grupp": "Längre ord", "visa": "järn"}, {"id": "ord-svamp", "text": "svamp", "grupp": "Längre ord", "visa": "svamp"}, {"id": "ord-gris", "text": "gris", "grupp": "Längre ord", "visa": "gris"}, {"id": "ord-orm", "text": "orm", "grupp": "Längre ord", "visa": "orm"}, {"id": "ord-boll", "text": "boll", "grupp": "Längre ord", "visa": "boll"}, {"id": "ord-båt", "text": "båt", "grupp": "Längre ord", "visa": "båt"}, {"id": "ord-skog", "text": "skog", "grupp": "Längre ord", "visa": "skog"}, {"id": "ord-äpple", "text": "äpple", "grupp": "Längre ord", "visa": "äpple"}, {"id": "ord-banan", "text": "banan", "grupp": "Längre ord", "visa": "banan"}, {"id": "ord-glass", "text": "glass", "grupp": "Längre ord", "visa": "glass"}, {"id": "ord-tröja", "text": "tröja", "grupp": "Längre ord", "visa": "tröja"}, {"id": "ord-mössa", "text": "mössa", "grupp": "Längre ord", "visa": "mössa"}, {"id": "ord-vante", "text": "vante", "grupp": "Längre ord", "visa": "vante"}, {"id": "ord-stol", "text": "stol", "grupp": "Längre ord", "visa": "stol"}, {"id": "ord-bord", "text": "bord", "grupp": "Längre ord", "visa": "bord"}, {"id": "ord-säng", "text": "säng", "grupp": "Längre ord", "visa": "säng"}, {"id": "ord-dörr", "text": "dörr", "grupp": "Längre ord", "visa": "dörr"}, {"id": "ord-mjölk", "text": "mjölk", "grupp": "Längre ord", "visa": "mjölk"}, {"id": "ord-saft", "text": "saft", "grupp": "Längre ord", "visa": "saft"}, {"id": "ord-korv", "text": "korv", "grupp": "Längre ord", "visa": "korv"}, {"id": "ord-tomat", "text": "tomat", "grupp": "Längre ord", "visa": "tomat"}, {"id": "ord-morot", "text": "morot", "grupp": "Längre ord", "visa": "morot"}, {"id": "ord-smör", "text": "smör", "grupp": "Längre ord", "visa": "smör"}, {"id": "ord-kanin", "text": "kanin", "grupp": "Längre ord", "visa": "kanin"}, {"id": "ord-uggla", "text": "uggla", "grupp": "Längre ord", "visa": "uggla"}, {"id": "ord-ekorre", "text": "ekorre", "grupp": "Längre ord", "visa": "ekorre"}, {"id": "ord-älg", "text": "älg", "grupp": "Längre ord", "visa": "älg"}, {"id": "ord-räv", "text": "räv", "grupp": "Längre ord", "visa": "räv"}, {"id": "ord-björn", "text": "björn", "grupp": "Längre ord", "visa": "björn"}, {"id": "ord-varg", "text": "varg", "grupp": "Längre ord", "visa": "varg"}, {"id": "ord-fågel", "text": "fågel", "grupp": "Längre ord", "visa": "fågel"}, {"id": "ord-hare", "text": "hare", "grupp": "Längre ord", "visa": "hare"}, {"id": "ord-groda", "text": "groda", "grupp": "Längre ord", "visa": "groda"}, {"id": "ord-snigel", "text": "snigel", "grupp": "Längre ord", "visa": "snigel"}, {"id": "ord-myra", "text": "myra", "grupp": "Längre ord", "visa": "myra"}, {"id": "ord-moln", "text": "moln", "grupp": "Längre ord", "visa": "moln"}, {"id": "ord-regn", "text": "regn", "grupp": "Längre ord", "visa": "regn"}, {"id": "ord-snö", "text": "snö", "grupp": "Längre ord", "visa": "snö"}, {"id": "ord-vind", "text": "vind", "grupp": "Längre ord", "visa": "vind"}, {"id": "ord-blomma", "text": "blomma", "grupp": "Längre ord", "visa": "blomma"}, {"id": "ord-gräs", "text": "gräs", "grupp": "Längre ord", "visa": "gräs"}, {"id": "ord-träd", "text": "träd", "grupp": "Längre ord", "visa": "träd"}, {"id": "ord-berg", "text": "berg", "grupp": "Längre ord", "visa": "berg"}, {"id": "ord-sjö", "text": "sjö", "grupp": "Längre ord", "visa": "sjö"}, {"id": "ord-strand", "text": "strand", "grupp": "Längre ord", "visa": "strand"}, {"id": "ord-sand", "text": "sand", "grupp": "Längre ord", "visa": "sand"}, {"id": "ord-hink", "text": "hink", "grupp": "Längre ord", "visa": "hink"}, {"id": "ord-spade", "text": "spade", "grupp": "Längre ord", "visa": "spade"}, {"id": "ord-kula", "text": "kula", "grupp": "Längre ord", "visa": "kula"}, {"id": "ord-docka", "text": "docka", "grupp": "Längre ord", "visa": "docka"}, {"id": "ord-nalle", "text": "nalle", "grupp": "Längre ord", "visa": "nalle"}, {"id": "ord-bild", "text": "bild", "grupp": "Längre ord", "visa": "bild"}, {"id": "ord-penna", "text": "penna", "grupp": "Längre ord", "visa": "penna"}, {"id": "ord-sax", "text": "sax", "grupp": "Längre ord", "visa": "sax"}, {"id": "ord-buss", "text": "buss", "grupp": "Längre ord", "visa": "buss"}, {"id": "ord-cykel", "text": "cykel", "grupp": "Längre ord", "visa": "cykel"}, {"id": "ord-raket", "text": "raket", "grupp": "Längre ord", "visa": "raket"}, {"id": "ord-robot", "text": "robot", "grupp": "Längre ord", "visa": "robot"}, {"id": "ord-drake", "text": "drake", "grupp": "Längre ord", "visa": "drake"}, {"id": "ord-kung", "text": "kung", "grupp": "Längre ord", "visa": "kung"}, {"id": "ord-slott", "text": "slott", "grupp": "Längre ord", "visa": "slott"}, {"id": "ord-borg", "text": "borg", "grupp": "Längre ord", "visa": "borg"}, {"id": "ord-skatt", "text": "skatt", "grupp": "Längre ord", "visa": "skatt"}, {"id": "ord-spik", "text": "spik", "grupp": "Längre ord", "visa": "spik"}, {"id": "ord-hammare", "text": "hammare", "grupp": "Längre ord", "visa": "hammare"}, {"id": "ord-stege", "text": "stege", "grupp": "Längre ord", "visa": "stege"}, {"id": "ord-låda", "text": "låda", "grupp": "Längre ord", "visa": "låda"}, {"id": "ord-tårta", "text": "tårta", "grupp": "Längre ord", "visa": "tårta"}, {"id": "ord-godis", "text": "godis", "grupp": "Längre ord", "visa": "godis"}, {"id": "ihop-sol", "text": "sss … ooo … lll … sol!", "grupp": "Ljuda ihop", "visa": "sss … ooo … lll … sol!"}, {"id": "ihop-mus", "text": "mmm … uuu … sss … mus!", "grupp": "Ljuda ihop", "visa": "mmm … uuu … sss … mus!"}, {"id": "ihop-ros", "text": "rrr … ooo … sss … ros!", "grupp": "Ljuda ihop", "visa": "rrr … ooo … sss … ros!"}, {"id": "ihop-ram", "text": "rrr … aaa … mmm … ram!", "grupp": "Ljuda ihop", "visa": "rrr … aaa … mmm … ram!"}, {"id": "ihop-mal", "text": "mmm … aaa … lll … mal!", "grupp": "Ljuda ihop", "visa": "mmm … aaa … lll … mal!"}, {"id": "ihop-sal", "text": "sss … aaa … lll … sal!", "grupp": "Ljuda ihop", "visa": "sss … aaa … lll … sal!"}, {"id": "ihop-mil", "text": "mmm … iii … lll … mil!", "grupp": "Ljuda ihop", "visa": "mmm … iii … lll … mil!"}, {"id": "ihop-ris", "text": "rrr … iii … sss … ris!", "grupp": "Ljuda ihop", "visa": "rrr … iii … sss … ris!"}, {"id": "ihop-ler", "text": "lll … eee … rrr … ler!", "grupp": "Ljuda ihop", "visa": "lll … eee … rrr … ler!"}, {"id": "ihop-mor", "text": "mmm … ooo … rrr … mor!", "grupp": "Ljuda ihop", "visa": "mmm … ooo … rrr … mor!"}, {"id": "ihop-lus", "text": "lll … uuu … sss … lus!", "grupp": "Ljuda ihop", "visa": "lll … uuu … sss … lus!"}, {"id": "ihop-lov", "text": "lll … ooo … vvv … lov!", "grupp": "Ljuda ihop", "visa": "lll … ooo … vvv … lov!"}, {"id": "ihop-lim", "text": "lll … iii … mmm … lim!", "grupp": "Ljuda ihop", "visa": "lll … iii … mmm … lim!"}, {"id": "ihop-lin", "text": "lll … iii … nnn … lin!", "grupp": "Ljuda ihop", "visa": "lll … iii … nnn … lin!"}, {"id": "ihop-lur", "text": "lll … uuu … rrr … lur!", "grupp": "Ljuda ihop", "visa": "lll … uuu … rrr … lur!"}, {"id": "ihop-mos", "text": "mmm … ooo … sss … mos!", "grupp": "Ljuda ihop", "visa": "mmm … ooo … sss … mos!"}, {"id": "ihop-mur", "text": "mmm … uuu … rrr … mur!", "grupp": "Ljuda ihop", "visa": "mmm … uuu … rrr … mur!"}, {"id": "ihop-mun", "text": "mmm … uuu … nnn … mun!", "grupp": "Ljuda ihop", "visa": "mmm … uuu … nnn … mun!"}, {"id": "ihop-mås", "text": "mmm … ååå … sss … mås!", "grupp": "Ljuda ihop", "visa": "mmm … ååå … sss … mås!"}, {"id": "ihop-nos", "text": "nnn … ooo … sss … nos!", "grupp": "Ljuda ihop", "visa": "nnn … ooo … sss … nos!"}, {"id": "ihop-nål", "text": "nnn … ååå … lll … nål!", "grupp": "Ljuda ihop", "visa": "nnn … ååå … lll … nål!"}, {"id": "ihop-sil", "text": "sss … iii … lll … sil!", "grupp": "Ljuda ihop", "visa": "sss … iii … lll … sil!"}, {"id": "ihop-sur", "text": "sss … uuu … rrr … sur!", "grupp": "Ljuda ihop", "visa": "sss … uuu … rrr … sur!"}, {"id": "ihop-sus", "text": "sss … uuu … sss … sus!", "grupp": "Ljuda ihop", "visa": "sss … uuu … sss … sus!"}, {"id": "ihop-säl", "text": "sss … äää … lll … säl!", "grupp": "Ljuda ihop", "visa": "sss … äää … lll … säl!"}, {"id": "ihop-val", "text": "vvv … aaa … lll … val!", "grupp": "Ljuda ihop", "visa": "vvv … aaa … lll … val!"}, {"id": "ihop-fin", "text": "fff … iii … nnn … fin!", "grupp": "Ljuda ihop", "visa": "fff … iii … nnn … fin!"}, {"id": "ihop-fem", "text": "fff … eee … mmm … fem!", "grupp": "Ljuda ihop", "visa": "fff … eee … mmm … fem!"}, {"id": "ihop-ful", "text": "fff … uuu … lll … ful!", "grupp": "Ljuda ihop", "visa": "fff … uuu … lll … ful!"}, {"id": "ihop-fyr", "text": "fff … yyy … rrr … fyr!", "grupp": "Ljuda ihop", "visa": "fff … yyy … rrr … fyr!"}, {"id": "ihop-is", "text": "iii … sss … is!", "grupp": "Ljuda ihop", "visa": "iii … sss … is!"}, {"id": "ihop-ål", "text": "ååå … lll … ål!", "grupp": "Ljuda ihop", "visa": "ååå … lll … ål!"}, {"id": "ihop-öra", "text": "ööö … rrr … aaa … öra!", "grupp": "Ljuda ihop", "visa": "ööö … rrr … aaa … öra!"}, {"id": "forsta-sol", "text": "Vilken bokstav börjar sol på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar sol på?"}, {"id": "forsta-mat", "text": "Vilken bokstav börjar mat på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar mat på?"}, {"id": "forsta-mus", "text": "Vilken bokstav börjar mus på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar mus på?"}, {"id": "forsta-ost", "text": "Vilken bokstav börjar ost på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar ost på?"}, {"id": "forsta-ros", "text": "Vilken bokstav börjar ros på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar ros på?"}, {"id": "forsta-ram", "text": "Vilken bokstav börjar ram på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar ram på?"}, {"id": "forsta-mal", "text": "Vilken bokstav börjar mal på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar mal på?"}, {"id": "forsta-sal", "text": "Vilken bokstav börjar sal på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar sal på?"}, {"id": "forsta-mil", "text": "Vilken bokstav börjar mil på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar mil på?"}, {"id": "forsta-ris", "text": "Vilken bokstav börjar ris på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar ris på?"}, {"id": "forsta-ler", "text": "Vilken bokstav börjar ler på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar ler på?"}, {"id": "forsta-mor", "text": "Vilken bokstav börjar mor på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar mor på?"}, {"id": "forsta-far", "text": "Vilken bokstav börjar far på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar far på?"}, {"id": "forsta-bil", "text": "Vilken bokstav börjar bil på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar bil på?"}, {"id": "forsta-bok", "text": "Vilken bokstav börjar bok på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar bok på?"}, {"id": "forsta-hus", "text": "Vilken bokstav börjar hus på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar hus på?"}, {"id": "forsta-hav", "text": "Vilken bokstav börjar hav på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar hav på?"}, {"id": "forsta-hal", "text": "Vilken bokstav börjar hal på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar hal på?"}, {"id": "forsta-kul", "text": "Vilken bokstav börjar kul på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar kul på?"}, {"id": "forsta-kam", "text": "Vilken bokstav börjar kam på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar kam på?"}, {"id": "forsta-lök", "text": "Vilken bokstav börjar lök på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar lök på?"}, {"id": "forsta-lås", "text": "Vilken bokstav börjar lås på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar lås på?"}, {"id": "forsta-lus", "text": "Vilken bokstav börjar lus på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar lus på?"}, {"id": "forsta-lov", "text": "Vilken bokstav börjar lov på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar lov på?"}, {"id": "forsta-lim", "text": "Vilken bokstav börjar lim på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar lim på?"}, {"id": "forsta-lin", "text": "Vilken bokstav börjar lin på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar lin på?"}, {"id": "forsta-lur", "text": "Vilken bokstav börjar lur på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar lur på?"}, {"id": "forsta-mos", "text": "Vilken bokstav börjar mos på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar mos på?"}, {"id": "forsta-mur", "text": "Vilken bokstav börjar mur på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar mur på?"}, {"id": "forsta-mun", "text": "Vilken bokstav börjar mun på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar mun på?"}, {"id": "forsta-mås", "text": "Vilken bokstav börjar mås på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar mås på?"}, {"id": "forsta-nos", "text": "Vilken bokstav börjar nos på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar nos på?"}, {"id": "forsta-nål", "text": "Vilken bokstav börjar nål på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar nål på?"}, {"id": "forsta-rot", "text": "Vilken bokstav börjar rot på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar rot på?"}, {"id": "forsta-rök", "text": "Vilken bokstav börjar rök på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar rök på?"}, {"id": "forsta-rum", "text": "Vilken bokstav börjar rum på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar rum på?"}, {"id": "forsta-sil", "text": "Vilken bokstav börjar sil på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar sil på?"}, {"id": "forsta-sur", "text": "Vilken bokstav börjar sur på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar sur på?"}, {"id": "forsta-sus", "text": "Vilken bokstav börjar sus på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar sus på?"}, {"id": "forsta-säl", "text": "Vilken bokstav börjar säl på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar säl på?"}, {"id": "forsta-tak", "text": "Vilken bokstav börjar tak på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar tak på?"}, {"id": "forsta-tal", "text": "Vilken bokstav börjar tal på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar tal på?"}, {"id": "forsta-tio", "text": "Vilken bokstav börjar tio på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar tio på?"}, {"id": "forsta-tum", "text": "Vilken bokstav börjar tum på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar tum på?"}, {"id": "forsta-tår", "text": "Vilken bokstav börjar tår på?", "grupp": "Vilken bokstav?", "visa": "Vilken bokstav börjar tår på?"}, {"id": "mening-01", "text": "Nils ser en sol.", "grupp": "Meningar", "visa": "Nils ser en sol."}, {"id": "mening-02", "text": "Mamma har en mus.", "grupp": "Meningar", "visa": "Mamma har en mus."}, {"id": "mening-03", "text": "Pappa har en bil.", "grupp": "Meningar", "visa": "Pappa har en bil."}, {"id": "mening-04", "text": "En ko går på väg.", "grupp": "Meningar", "visa": "En ko går på väg."}, {"id": "mening-05", "text": "Katten sover.", "grupp": "Meningar", "visa": "Katten sover."}, {"id": "mening-06", "text": "Hunden är glad.", "grupp": "Meningar", "visa": "Hunden är glad."}, {"id": "mening-07", "text": "Jag ser ett torn.", "grupp": "Meningar", "visa": "Jag ser ett torn."}, {"id": "mening-08", "text": "Tornet är högt.", "grupp": "Meningar", "visa": "Tornet är högt."}, {"id": "mening-09", "text": "Solen är gul.", "grupp": "Meningar", "visa": "Solen är gul."}, {"id": "mening-10", "text": "Ett lamm leker.", "grupp": "Meningar", "visa": "Ett lamm leker."}, {"id": "mening-11", "text": "Fisken simmar.", "grupp": "Meningar", "visa": "Fisken simmar."}, {"id": "mening-12", "text": "Ugglan sitter i ett träd.", "grupp": "Meningar", "visa": "Ugglan sitter i ett träd."}, {"id": "mening-13", "text": "En älg står i skogen.", "grupp": "Meningar", "visa": "En älg står i skogen."}, {"id": "mening-14", "text": "Nils har en boll.", "grupp": "Meningar", "visa": "Nils har en boll."}, {"id": "mening-15", "text": "Bollen är röd.", "grupp": "Meningar", "visa": "Bollen är röd."}, {"id": "mening-16", "text": "Mamma läser en bok.", "grupp": "Meningar", "visa": "Mamma läser en bok."}, {"id": "mening-17", "text": "Pappa äter ost.", "grupp": "Meningar", "visa": "Pappa äter ost."}, {"id": "mening-18", "text": "Det regnar ute.", "grupp": "Meningar", "visa": "Det regnar ute."}, {"id": "mening-19", "text": "Snön är vit.", "grupp": "Meningar", "visa": "Snön är vit."}, {"id": "mening-20", "text": "En båt på sjön.", "grupp": "Meningar", "visa": "En båt på sjön."}, {"id": "mening-21", "text": "Grisen är rosa.", "grupp": "Meningar", "visa": "Grisen är rosa."}, {"id": "mening-22", "text": "Hästen springer.", "grupp": "Meningar", "visa": "Hästen springer."}, {"id": "mening-23", "text": "Draken flyger.", "grupp": "Meningar", "visa": "Draken flyger."}, {"id": "mening-24", "text": "Roboten går.", "grupp": "Meningar", "visa": "Roboten går."}, {"id": "mening-25", "text": "Kungen har ett slott.", "grupp": "Meningar", "visa": "Kungen har ett slott."}, {"id": "mening-26", "text": "Raketen åker upp.", "grupp": "Meningar", "visa": "Raketen åker upp."}, {"id": "mening-27", "text": "Nils bygger ett torn.", "grupp": "Meningar", "visa": "Nils bygger ett torn."}, {"id": "mening-28", "text": "Blocket är av trä.", "grupp": "Meningar", "visa": "Blocket är av trä."}, {"id": "mening-29", "text": "Stenen är tung.", "grupp": "Meningar", "visa": "Stenen är tung."}, {"id": "mening-30", "text": "Guld är gult.", "grupp": "Meningar", "visa": "Guld är gult."}, {"id": "mening-31", "text": "Diamanten glittrar.", "grupp": "Meningar", "visa": "Diamanten glittrar."}, {"id": "mening-32", "text": "Ekorren äter.", "grupp": "Meningar", "visa": "Ekorren äter."}, {"id": "mening-33", "text": "Räven är röd.", "grupp": "Meningar", "visa": "Räven är röd."}, {"id": "mening-34", "text": "Björnen sover.", "grupp": "Meningar", "visa": "Björnen sover."}, {"id": "mening-35", "text": "Myran är liten.", "grupp": "Meningar", "visa": "Myran är liten."}, {"id": "mening-36", "text": "Snigeln är långsam.", "grupp": "Meningar", "visa": "Snigeln är långsam."}, {"id": "mening-37", "text": "Grodan hoppar.", "grupp": "Meningar", "visa": "Grodan hoppar."}, {"id": "mening-38", "text": "Fågeln sjunger.", "grupp": "Meningar", "visa": "Fågeln sjunger."}, {"id": "mening-39", "text": "Vi äter glass.", "grupp": "Meningar", "visa": "Vi äter glass."}, {"id": "mening-40", "text": "Jag har en mössa.", "grupp": "Meningar", "visa": "Jag har en mössa."}, {"id": "mening-41", "text": "Nils har en hatt.", "grupp": "Meningar", "visa": "Nils har en hatt."}, {"id": "mening-42", "text": "Mamma har en kaka.", "grupp": "Meningar", "visa": "Mamma har en kaka."}, {"id": "mening-43", "text": "En nalle i sängen.", "grupp": "Meningar", "visa": "En nalle i sängen."}, {"id": "mening-44", "text": "Lampan lyser.", "grupp": "Meningar", "visa": "Lampan lyser."}, {"id": "mening-45", "text": "Dörren är öppen.", "grupp": "Meningar", "visa": "Dörren är öppen."}, {"id": "mening-46", "text": "Kaninen äter en morot.", "grupp": "Meningar", "visa": "Kaninen äter en morot."}, {"id": "mening-47", "text": "Tårtan är god.", "grupp": "Meningar", "visa": "Tårtan är god."}, {"id": "mening-48", "text": "Nils gräver i sanden.", "grupp": "Meningar", "visa": "Nils gräver i sanden."}, {"id": "mening-49", "text": "Hinken är full.", "grupp": "Meningar", "visa": "Hinken är full."}, {"id": "mening-50", "text": "Månen lyser.", "grupp": "Meningar", "visa": "Månen lyser."}, {"id": "mening-51", "text": "Molnet är grått.", "grupp": "Meningar", "visa": "Molnet är grått."}, {"id": "mening-52", "text": "Vinden blåser.", "grupp": "Meningar", "visa": "Vinden blåser."}, {"id": "mening-53", "text": "En kula rullar.", "grupp": "Meningar", "visa": "En kula rullar."}, {"id": "mening-54", "text": "Spiken är av järn.", "grupp": "Meningar", "visa": "Spiken är av järn."}, {"id": "mening-55", "text": "Skatten är av guld.", "grupp": "Meningar", "visa": "Skatten är av guld."}, {"id": "mening-56", "text": "Nils hittar en skatt.", "grupp": "Meningar", "visa": "Nils hittar en skatt."}, {"id": "mening-57", "text": "Jag kan läsa.", "grupp": "Meningar", "visa": "Jag kan läsa."}, {"id": "mening-58", "text": "Det är kul att läsa.", "grupp": "Meningar", "visa": "Det är kul att läsa."}, {"id": "mening-59", "text": "Bussen kör.", "grupp": "Meningar", "visa": "Bussen kör."}, {"id": "mening-60", "text": "Cykeln är ny.", "grupp": "Meningar", "visa": "Cykeln är ny."}, {"id": "berom-01", "text": "Wow!", "grupp": "Beröm", "visa": "Wow!"}, {"id": "berom-02", "text": "Superbra!", "grupp": "Beröm", "visa": "Superbra!"}, {"id": "berom-03", "text": "Kanon!", "grupp": "Beröm", "visa": "Kanon!"}, {"id": "berom-04", "text": "Toppen, Nils!", "grupp": "Beröm", "visa": "Toppen, Nils!"}, {"id": "berom-05", "text": "Du är grym!", "grupp": "Beröm", "visa": "Du är grym!"}, {"id": "berom-06", "text": "Snyggt grävt!", "grupp": "Beröm", "visa": "Snyggt grävt!"}, {"id": "berom-07", "text": "Pang! Där gick blocket!", "grupp": "Beröm", "visa": "Pang! Där gick blocket!"}, {"id": "berom-08", "text": "Bra lyssnat!", "grupp": "Beröm", "visa": "Bra lyssnat!"}, {"id": "berom-09", "text": "Du läste rätt!", "grupp": "Beröm", "visa": "Du läste rätt!"}, {"id": "berom-10", "text": "Ett block till!", "grupp": "Beröm", "visa": "Ett block till!"}, {"id": "berom-11", "text": "Yes!", "grupp": "Beröm", "visa": "Yes!"}, {"id": "berom-12", "text": "Helt rätt!", "grupp": "Beröm", "visa": "Helt rätt!"}, {"id": "berom-13", "text": "Vilken läsare!", "grupp": "Beröm", "visa": "Vilken läsare!"}, {"id": "berom-14", "text": "Nu blir tornet högre!", "grupp": "Beröm", "visa": "Nu blir tornet högre!"}, {"id": "berom-15", "text": "Snabbt och rätt!", "grupp": "Beröm", "visa": "Snabbt och rätt!"}, {"id": "berom-16", "text": "Där satt den!", "grupp": "Beröm", "visa": "Där satt den!"}, {"id": "berom-17", "text": "Du klarade det!", "grupp": "Beröm", "visa": "Du klarade det!"}, {"id": "berom-18", "text": "Härligt!", "grupp": "Beröm", "visa": "Härligt!"}, {"id": "berom-19", "text": "Precis!", "grupp": "Beröm", "visa": "Precis!"}, {"id": "berom-20", "text": "Mästerligt!", "grupp": "Beröm", "visa": "Mästerligt!"}, {"id": "hjalp-01", "text": "Titta noga.", "grupp": "Hjälp", "visa": "Titta noga."}, {"id": "hjalp-02", "text": "Lyssna en gång till.", "grupp": "Hjälp", "visa": "Lyssna en gång till."}, {"id": "hjalp-03", "text": "Nästan! Prova igen.", "grupp": "Hjälp", "visa": "Nästan! Prova igen."}, {"id": "hjalp-04", "text": "Ingen fara, prova igen.", "grupp": "Hjälp", "visa": "Ingen fara, prova igen."}, {"id": "hjalp-05", "text": "Tryck på högtalaren om du vill höra igen.", "grupp": "Hjälp", "visa": "Tryck på högtalaren om du vill höra igen."}, {"id": "hjalp-06", "text": "Ta det lugnt. Du har gott om tid.", "grupp": "Hjälp", "visa": "Ta det lugnt. Du har gott om tid."}, {"id": "hjalp-07", "text": "Titta, den lyser!", "grupp": "Hjälp", "visa": "Titta, den lyser!"}, {"id": "hjalp-08", "text": "Prova ett annat block.", "grupp": "Hjälp", "visa": "Prova ett annat block."}, {"id": "hjalp-09", "text": "Bra försök!", "grupp": "Hjälp", "visa": "Bra försök!"}, {"id": "hjalp-10", "text": "Det är svårt. Vi tar det tillsammans.", "grupp": "Hjälp", "visa": "Det är svårt. Vi tar det tillsammans."}, {"id": "intro-tra", "text": "Nu gräver vi trä! Hitta den lilla bokstaven.", "grupp": "Berättarrösten", "visa": "Nu gräver vi trä! Hitta den lilla bokstaven."}, {"id": "intro-sten", "text": "Nu går vi ner i grottan. Lyssna och välj rätt block.", "grupp": "Berättarrösten", "visa": "Nu går vi ner i grottan. Lyssna och välj rätt block."}, {"id": "intro-jarn", "text": "Välkommen till järngruvan! Här ljudar vi ihop.", "grupp": "Berättarrösten", "visa": "Välkommen till järngruvan! Här ljudar vi ihop."}, {"id": "intro-guld", "text": "Guldgruvan! Läs ordet och välj rätt.", "grupp": "Berättarrösten", "visa": "Guldgruvan! Läs ordet och välj rätt."}, {"id": "intro-diamant", "text": "Diamantgrottan! Nu läser vi meningar.", "grupp": "Berättarrösten", "visa": "Diamantgrottan! Nu läser vi meningar."}, {"id": "klar-tra", "text": "Trävåningen är klar!", "grupp": "Berättarrösten", "visa": "Trävåningen är klar!"}, {"id": "klar-sten", "text": "Stenvåningen är klar!", "grupp": "Berättarrösten", "visa": "Stenvåningen är klar!"}, {"id": "klar-jarn", "text": "Järnvåningen är klar!", "grupp": "Berättarrösten", "visa": "Järnvåningen är klar!"}, {"id": "klar-guld", "text": "Guldvåningen är klar!", "grupp": "Berättarrösten", "visa": "Guldvåningen är klar!"}, {"id": "klar-diamant", "text": "Diamanttoppen är klar! Slottet är färdigt!", "grupp": "Berättarrösten", "visa": "Diamanttoppen är klar! Slottet är färdigt!"}, {"id": "oppnad-sten", "text": "Du har låst upp sten!", "grupp": "Berättarrösten", "visa": "Du har låst upp sten!"}, {"id": "oppnad-jarn", "text": "Du har låst upp järn!", "grupp": "Berättarrösten", "visa": "Du har låst upp järn!"}, {"id": "oppnad-guld", "text": "Du har låst upp guld!", "grupp": "Berättarrösten", "visa": "Du har låst upp guld!"}, {"id": "oppnad-diamant", "text": "Du har låst upp diamant!", "grupp": "Berättarrösten", "visa": "Du har låst upp diamant!"}, {"id": "tid-slut", "text": "Nu har du spelat klart för i dag. Bra jobbat, Nils! Tornet väntar på dig.", "grupp": "Berättarrösten", "visa": "Nu har du spelat klart för i dag. Bra jobbat, Nils! Tornet väntar på dig."}, {"id": "vinst-jarn", "text": "Bra jobbat, Nils! Du fick sex järnblock. Nu kan du bygga!", "grupp": "Berättarrösten", "visa": "Bra jobbat, Nils! Du fick sex järnblock. Nu kan du bygga!"}, {"id": "vinst-guld", "text": "Bra jobbat, Nils! Du fick sex guldblock. Nu kan du bygga!", "grupp": "Berättarrösten", "visa": "Bra jobbat, Nils! Du fick sex guldblock. Nu kan du bygga!"}, {"id": "vinst-diamant", "text": "Bra jobbat, Nils! Du fick sex diamanter. Nu kan du bygga!", "grupp": "Berättarrösten", "visa": "Bra jobbat, Nils! Du fick sex diamanter. Nu kan du bygga!"}, {"id": "lyssna-valj", "text": "Lyssna och välj rätt block.", "grupp": "Berättarrösten", "visa": "Lyssna och välj rätt block."}, {"id": "las-valj", "text": "Läs ordet. Vilket block är rätt?", "grupp": "Berättarrösten", "visa": "Läs ordet. Vilket block är rätt?"}, {"id": "las-mening", "text": "Läs meningen och välj rätt.", "grupp": "Berättarrösten", "visa": "Läs meningen och välj rätt."}, {"id": "fon-s-a", "text": "Sss.", "grupp": "Prov: rena ljud", "visa": "s → \"Sss.\" (v3)"}, {"id": "fon-s-b", "text": "sss", "grupp": "Prov: rena ljud", "visa": "s → \"sss\" (v2)"}, {"id": "fon-m-a", "text": "Mmm.", "grupp": "Prov: rena ljud", "visa": "m → \"Mmm.\" (v3)"}, {"id": "fon-m-b", "text": "mmm", "grupp": "Prov: rena ljud", "visa": "m → \"mmm\" (v2)"}, {"id": "fon-l-a", "text": "Lll.", "grupp": "Prov: rena ljud", "visa": "l → \"Lll.\" (v3)"}, {"id": "fon-l-b", "text": "lll", "grupp": "Prov: rena ljud", "visa": "l → \"lll\" (v2)"}, {"id": "fon-r-a", "text": "Rrr.", "grupp": "Prov: rena ljud", "visa": "r → \"Rrr.\" (v3)"}, {"id": "fon-r-b", "text": "rrr", "grupp": "Prov: rena ljud", "visa": "r → \"rrr\" (v2)"}, {"id": "fon-f-a", "text": "Fff.", "grupp": "Prov: rena ljud", "visa": "f → \"Fff.\" (v3)"}, {"id": "fon-f-b", "text": "fff", "grupp": "Prov: rena ljud", "visa": "f → \"fff\" (v2)"}, {"id": "fon-o-a", "text": "Oo.", "grupp": "Prov: rena ljud", "visa": "o → \"Oo.\" (v3)"}, {"id": "fon-o-b", "text": "oo", "grupp": "Prov: rena ljud", "visa": "o → \"oo\" (v2)"}, {"id": "fon-u-a", "text": "Uu.", "grupp": "Prov: rena ljud", "visa": "u → \"Uu.\" (v3)"}, {"id": "fon-u-b", "text": "uu", "grupp": "Prov: rena ljud", "visa": "u → \"uu\" (v2)"}, {"id": "fon-a-a", "text": "Aa.", "grupp": "Prov: rena ljud", "visa": "a → \"Aa.\" (v3)"}, {"id": "fon-a-b", "text": "aa", "grupp": "Prov: rena ljud", "visa": "a → \"aa\" (v2)"}, {"id": "fon-i-a", "text": "Ii.", "grupp": "Prov: rena ljud", "visa": "i → \"Ii.\" (v3)"}, {"id": "fon-i-b", "text": "ii", "grupp": "Prov: rena ljud", "visa": "i → \"ii\" (v2)"}, {"id": "fon-k-a", "text": "K.", "grupp": "Prov: rena ljud", "visa": "k → \"K.\" (v3)"}, {"id": "fon-k-b", "text": "Kh.", "grupp": "Prov: rena ljud", "visa": "k → \"Kh.\" (v3)"}, {"id": "fon-k-c", "text": "kh", "grupp": "Prov: rena ljud", "visa": "k → \"kh\" (v2)"}, {"id": "fon-t-a", "text": "T.", "grupp": "Prov: rena ljud", "visa": "t → \"T.\" (v3)"}, {"id": "fon-t-b", "text": "Th.", "grupp": "Prov: rena ljud", "visa": "t → \"Th.\" (v3)"}, {"id": "fon-t-c", "text": "th", "grupp": "Prov: rena ljud", "visa": "t → \"th\" (v2)"}, {"id": "fon-p-a", "text": "P.", "grupp": "Prov: rena ljud", "visa": "p → \"P.\" (v3)"}, {"id": "fon-p-b", "text": "Ph.", "grupp": "Prov: rena ljud", "visa": "p → \"Ph.\" (v3)"}, {"id": "fon-p-c", "text": "ph", "grupp": "Prov: rena ljud", "visa": "p → \"ph\" (v2)"}];
+const LJUDTEXT = Object.fromEntries(LJUDLISTA.map(r => [r.id, r.text]));
+const Ljud = {
+  el: new Audio(), ko: [], knapp: null, paus: 0,
+  spela(ids, btn, paus = 0){
+    this.paus = paus;
+    if (Tal.ok) speechSynthesis.cancel();
+    this.el.pause(); this.ko = [].concat(ids);
+    this.knapp && this.knapp.classList.remove('talking', 'playing');
+    this.knapp = btn || null; btn && btn.classList.add(btn.classList.contains('say') ? 'playing' : 'talking');
+    this.nasta();
+  },
+  nasta(){
+    const id = this.ko.shift();
+    if (!id){ this.knapp && this.knapp.classList.remove('talking', 'playing'); this.knapp = null; return; }
+    this.el.src = '../ljud/' + id + '.mp3';
+    this.el.play().catch(() => { Tal.say(LJUDTEXT[id] || '').then(() => this.nasta()); });
+  },
+  tyst(){ this.ko = []; this.el.pause(); this.knapp && this.knapp.classList.remove('talking', 'playing'); this.knapp = null; },
+};
+Ljud.el.onended = () => Ljud.paus && Ljud.ko.length ? setTimeout(() => Ljud.nasta(), Ljud.paus) : Ljud.nasta();
+
+let actx = null;
+function fx(type){
+  try {
+    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+    const t = actx.currentTime, o = actx.createOscillator(), g = actx.createGain();
+    o.connect(g); g.connect(actx.destination);
+    const set = { pop:['square',520,180,.12,.09], ding:['triangle',880,1320,.25,.14], thunk:['sine',160,70,.18,.25], boop:['sine',260,180,.22,.1], tada:['triangle',660,990,.5,.13] }[type];
+    o.type = set[0]; o.frequency.setValueAtTime(set[1], t); o.frequency.exponentialRampToValueAtTime(set[2], t + set[3]);
+    g.gain.setValueAtTime(set[4], t); g.gain.exponentialRampToValueAtTime(.0001, t + set[3]);
+    o.start(t); o.stop(t + set[3] + .02);
+  } catch (e) {}
+}
+
+/* ---------------- läget (skissen sparar bara röstvalet) ---------------- */
+const S = { bag:{ tra:0, sten:0, jarn:0, guld:0, diamant:0 }, built:{ tra:0, sten:0, jarn:0, guld:0, diamant:0 }, stars:{ tra:0 } };
+
+function renderBags(){
+  $$('[data-bag]').forEach(el => {
+    el.innerHTML = `<div class="sack"></div>` + ORDN.map(m =>
+      `<div class="item ${S.bag[m] ? '' : 'zero'}" data-m="${m}"><i style="background-image:url(${MAT[m].tex})"></i>${S.bag[m]}</div>`).join('');
+    el.querySelector('.sack').style.backgroundImage = `url(${T.sack})`;
+  });
+  const n = ORDN.reduce((a, m) => a + S.bag[m], 0);
+  $('#buildBadge').textContent = n; $('#buildBadge').style.display = n ? 'grid' : 'none';
+}
+
+/* ---------------- tornet ---------------- */
+/* Slottet: 13 brett. Trä = grunden med porten, sten = muren, järn = två torn + borgen,
+   guld = tinnarna, diamant = topparna. Flaggor när allt är klart. */
+const W = 13, H = 14;
+const TORN = (() => {
+  const c = []; const add = (m, x, y) => c.push({ m, x, y });
+  for (let y=0;y<3;y++) for (let x=0;x<W;x++){ if (y < 2 && x >= 5 && x <= 7) continue; add('tra', x, y); }
+  for (let y=3;y<5;y++) for (let x=0;x<W;x++){ if (y === 4 && (x === 2 || x === 10)) continue; add('sten', x, y); }
+  add('sten', 3, 5); add('sten', 9, 5);
+  const torn = x => x <= 2 || x >= 10, borg = x => x >= 4 && x <= 8;
+  for (let y=5;y<8;y++) for (let x=0;x<W;x++){
+    if (!(torn(x) || borg(x))) continue;
+    if (y === 6 && (x === 1 || x === 11 || x === 6)) continue;
+    add('jarn', x, y);
+  }
+  for (let x=0;x<W;x++) if (torn(x) || borg(x)) add('guld', x, 8);
+  [0,2,10,12,4,6,8].forEach(x => add('guld', x, 9));
+  [[1,9],[11,9],[5,9],[7,9],[6,10],[6,11]].forEach(([x, y]) => add('diamant', x, y));
+  return c;
+})();
+const TOTAL = m => TORN.filter(c => c.m === m).length;
+
+function renderTower(el, cell, opts = {}){
+  el.style.width = `calc(${cell} * ${W})`; el.style.height = `calc(${cell} * ${H})`;
+  const seen = {}; let nextMarked = false;
+  const firstOpen = ORDN.find(m => S.built[m] < TOTAL(m));
+  el.innerHTML = TORN.map((c, idx) => {
+    seen[c.m] = (seen[c.m] || 0) + 1;
+    const full = seen[c.m] <= S.built[c.m];
+    let cls = full ? 'full' : 'ghost';
+    if (!full && c.m !== firstOpen) cls += ' far';
+    if (!full && opts.next && !nextMarked && S.bag[c.m] > 0 && c.m === nextMat()){
+      if (seen[c.m] === S.built[c.m] + 1){ cls += ' next'; nextMarked = true; }
+    }
+    const bg = full ? `background-image:url(${MAT[c.m].tex});` : '';
+    return `<div class="c ${cls}" data-i="${idx}" style="left:calc(${cell}*${c.x});bottom:calc(${cell}*${c.y});width:${cell};height:${cell};${bg}"></div>`;
+  }).join('') + (ORDN.every(m => S.built[m] >= TOTAL(m)) ? [[1,10],[11,10],[6,12]].map(([x, y]) =>
+    `<div class="pole" style="left:calc(${cell}*${x} + ${cell}*.4);bottom:calc(${cell}*${y});width:calc(${cell}*.2);height:calc(${cell}*1.8)"></div>
+     <div class="flag" style="left:calc(${cell}*${x} + ${cell}*.6);bottom:calc(${cell}*${y + 1});width:calc(${cell}*1.1);height:calc(${cell}*.75)"></div>`).join('') : '');
+}
+function nextMat(){ return ORDN.find(m => S.bag[m] > 0 && S.built[m] < TOTAL(m)); }
+function placeOne(){
+  const m = nextMat(); if (!m) return false;
+  S.bag[m]--; S.built[m]++;
+  renderTower($('#towerBig'), 'calc(var(--u)*3.8)', { next:true });
+  const idx = TORN.findIndex((c, i) => c.m === m && TORN.slice(0, i + 1).filter(d => d.m === m).length === S.built[m]);
+  const cell = $(`#towerBig .c[data-i="${idx}"]`);
+  cell && cell.classList.add('drop');
+  setTimeout(() => fx('thunk'), 380);
+  renderBags(); return true;
+}
+
+/* ---------------- start ---------------- */
+function renderStart(){
+  const firstOpen = 0; // i skissen: trä är öppen, resten låsta
+  $('#path').innerHTML = ORDN.map((m, i) => {
+    const locked = i > firstOpen, active = i === firstOpen;
+    const stars = i === 0 ? `<div class="stars">${[0,1,2].map(k => `<b class="${k < S.stars.tra ? '' : 'off'}"></b>`).join('')}</div>` : '';
+    return `<div class="step ${locked ? 'locked' : ''} ${active ? 'active' : ''}" style="margin-bottom:calc(var(--u)*${i * 5})">
+      ${stars}
+      <button class="block" ${active ? 'data-go="tra"' : 'data-locked="1"'} style="background-image:url(${MAT[m].tex})" aria-label="${MAT[m].namn}">
+        ${active ? `<span class="play"><svg viewBox="0 0 24 24"><path fill="#fff" stroke="#2b2a26" stroke-width="1.2" d="M7 4.5v15l12-7.5z"/></svg></span>` : ''}
+      </button>
+      <div class="cap">${MAT[m].namn}<small>${MAT[m].steg}</small></div>
+    </div>`;
+  }).join('');
+  renderTower($('#towerMini'), 'calc(var(--u)*1.5)');
+}
+
+/* ---------------- trä: hitta lilla bokstaven ---------------- */
+const TRA_MAL = ['a','m','s','o','l','i'];
+const POOL = ['a','m','s','o','l','r','i','e','n','u','t'];
+const shuffle = a => { const b = [...a]; for (let i = b.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; };
+const Lvl = { tra:{ round:0, miss:0, busy:false }, sten:{ round:0, miss:0, busy:false, mode:'ljud' } };
+
+function progress(el, n, done, tex){
+  el.innerHTML = Array.from({ length:n }, (_, i) => `<span class="${i < done ? 'full' : ''}" style="${i < done ? `background-image:url(${tex})` : ''}"></span>`).join('');
+}
+function startTra(){ Object.assign(Lvl.tra, { round:0, miss:0, busy:false }); roundTra(); }
+function roundTra(){
+  const L = Lvl.tra, t = TRA_MAL[L.round]; L.miss = 0; L.busy = false;
+  $('#traBig').textContent = t.toUpperCase();
+  progress($('#traProg'), TRA_MAL.length, L.round, T.plank);
+  const opts = shuffle([t, ...shuffle(POOL.filter(x => x !== t)).slice(0, 3)]);
+  $('#traRow').innerHTML = opts.map((o, i) =>
+    `<button class="block pop" data-l="${o}" ${o === t ? 'data-ok="1"' : ''} style="background-image:url(${T.plank});animation-delay:${i * 70}ms"><span class="plate">${o}</span></button>`).join('');
+  $$('#traRow .block').forEach(b => b.onclick = () => pickTra(b));
+  sayTra();
+}
+function sayTra(){ const t = TRA_MAL[Lvl.tra.round]; return Ljud.spela('tra-hitta-' + t, $('#traSay')); }
+async function pickTra(b){
+  const L = Lvl.tra; if (L.busy) return;
+  const t = TRA_MAL[L.round];
+  if (b.dataset.ok){
+    L.busy = true; fx('ding');
+    $$('#traRow .block').forEach(x => x.classList.remove('hint'));
+    Ljud.spela(pick(Math.random, ['ratt-ja', 'ratt-snyggt', 'ratt-ratt']));
+    await breakBlock(b, T.plank, 'tra');
+    L.round++;
+    if (L.round >= TRA_MAL.length){ progress($('#traProg'), TRA_MAL.length, L.round, T.plank); S.stars.tra = Math.min(3, S.stars.tra + 1); return celebrate('tra', TRA_MAL.length); }
+    await sleep(700); roundTra();
+  } else {
+    fx('boop'); L.miss++;
+    b.classList.remove('wobble'); void b.offsetWidth; b.classList.add('wobble');
+    Ljud.spela(['fel-prova', 'tra-hitta-' + t]);
+    if (L.miss >= 2) $('#traRow [data-ok]').classList.add('hint');
+  }
+}
+
+/* ---------------- sten: lyssna och välj ---------------- */
+const STEN = {
+  ljud: [
+    { t:'m', say:'mmm. Som i mamma.', opts:['m','s','o'] },
+    { t:'s', say:'sss. Som i sol.',   opts:['s','a','l'] },
+    { t:'o', say:'ooo. Som i orm.',   opts:['o','m','i'] },
+    { t:'a', say:'aaa. Som i apa.',   opts:['a','r','s'] },
+    { t:'l', say:'lll. Som i lampa.', opts:['l','o','m'] },
+    { t:'i', say:'iii. Som i is.',    opts:['i','a','s'] },
+  ],
+  ord: [
+    { t:'sol', say:'sol', opts:['sol','mus','ram'] },
+    { t:'mat', say:'mat', opts:['is','mat','ros'] },
+    { t:'mus', say:'mus', opts:['mus','ost','lam'] },
+    { t:'is',  say:'is',  opts:['ko','sol','is'] },
+    { t:'ros', say:'ros', opts:['ros','mat','mus'] },
+    { t:'ost', say:'ost', opts:['lam','ost','is'] },
+  ],
+};
+function startSten(){ Object.assign(Lvl.sten, { round:0, miss:0, busy:false }); roundSten(); }
+function roundSten(){
+  const L = Lvl.sten, q = STEN[L.mode][L.round]; L.miss = 0; L.busy = false;
+  progress($('#stenProg'), 6, L.round, T.stone);
+  const word = L.mode === 'ord';
+  $('#stenRow').innerHTML = shuffle(q.opts).map((o, i) =>
+    `<button class="block pop" data-l="${o}" ${o === q.t ? 'data-ok="1"' : ''} style="background-image:url(${T.stone});animation-delay:${i * 70}ms"><span class="plate ${word ? 'word' : ''}">${o}</span></button>`).join('');
+  $$('#stenRow .block').forEach(b => b.onclick = () => pickSten(b));
+  saySten();
+}
+const stenId = q => (Lvl.sten.mode === 'ord' ? 'ord-' : 'ljud-') + q.t;
+function saySten(){ const q = STEN[Lvl.sten.mode][Lvl.sten.round]; return Ljud.spela(stenId(q), $('#stenSay')); }
+async function pickSten(b){
+  const L = Lvl.sten; if (L.busy) return;
+  const q = STEN[L.mode][L.round];
+  if (b.dataset.ok){
+    L.busy = true; fx('ding');
+    $$('#stenRow .block').forEach(x => x.classList.remove('hint'));
+    Ljud.spela(L.mode === 'ord' ? ['ratt-ja', 'ord-' + q.t] : pick(Math.random, ['ratt-ja', 'ratt-snyggt', 'ratt-ratt']));
+    await breakBlock(b, T.stone, 'sten');
+    L.round++;
+    if (L.round >= 6){ progress($('#stenProg'), 6, 6, T.stone); return celebrate('sten', 6); }
+    await sleep(700); roundSten();
+  } else {
+    fx('boop'); L.miss++;
+    b.classList.remove('wobble'); void b.offsetWidth; b.classList.add('wobble');
+    Ljud.spela(['fel-lyssna', stenId(q)]);
+    if (L.miss >= 2) $('#stenRow [data-ok]').classList.add('hint');
+  }
+}
+$$('#stenModes button').forEach(b => b.onclick = () => {
+  $$('#stenModes button').forEach(x => x.classList.toggle('on', x === b));
+  Lvl.sten.mode = b.dataset.mode; startSten();
+});
+
+/* ---------------- blocket går sönder och flyger till ryggsäcken ---------------- */
+async function breakBlock(b, tex, mat){
+  b.classList.add('crack'); fx('pop');
+  await sleep(230);
+  const r = b.getBoundingClientRect();
+  const screen = b.closest('.screen');
+  const sack = screen.querySelector('[data-bag] .sack').getBoundingClientRect();
+  const tx = sack.left + sack.width / 2, ty = sack.top + sack.height / 2;
+  const n = 4, w = r.width / n, plate = b.querySelector('.plate');
+  b.style.visibility = 'hidden';
+  if (plate) {
+    const pr = plate.getBoundingClientRect(), ghost = plate.cloneNode(true);
+    Object.assign(ghost.style, { position:'fixed', left:pr.left + 'px', top:pr.top + 'px', width:pr.width + 'px', height:pr.height + 'px', inset:'auto', zIndex:55, fontSize:getComputedStyle(plate).fontSize });
+    document.body.appendChild(ghost);
+    ghost.animate([{ transform:'scale(1)', opacity:1 }, { transform:'scale(1.5)', opacity:0 }], { duration:420, easing:'ease-out' }).onfinish = () => ghost.remove();
+  }
+  const anims = [];
+  for (let i = 0; i < n; i++) for (let j = 0; j < n; j++){
+    const p = document.createElement('div'); p.className = 'piece';
+    Object.assign(p.style, { left:r.left + i * w + 'px', top:r.top + j * w + 'px', width:w + 'px', height:w + 'px',
+      backgroundImage:`url(${tex})`, backgroundPosition:`${i / (n - 1) * 100}% ${j / (n - 1) * 100}%` });
+    document.body.appendChild(p);
+    const cx = r.left + i * w, cy = r.top + j * w;
+    const bx = (i - 1.5) * w * (1.2 + Math.random()), by = (j - 1.5) * w * (1.2 + Math.random()) - w * 1.5;
+    const a = p.animate([
+      { transform:'translate(0,0) rotate(0) scale(1)' },
+      { transform:`translate(${bx}px,${by}px) rotate(${(Math.random() - .5) * 180}deg) scale(.9)`, offset:.35 },
+      { transform:`translate(${tx - cx - w / 2}px,${ty - cy - w / 2}px) rotate(${(Math.random() - .5) * 360}deg) scale(.25)` },
+    ], { duration:800 + Math.random() * 250, delay:(i + j) * 18, easing:'cubic-bezier(.4,0,.6,1)', fill:'forwards' });
+    anims.push(a.finished.then(() => p.remove()));
+  }
+  await Promise.race([Promise.all(anims), sleep(1400)]);
+  S.bag[mat]++; renderBags();
+  $$('.sack').forEach(s => { s.classList.remove('bump'); void s.offsetWidth; s.classList.add('bump'); });
+  fx('pop');
+}
+
+/* ---------------- firandet ---------------- */
+let lastLevel = 'tra';
+function celebrate(mat, n){
+  lastLevel = mat; fx('tada');
+  $('#winTitle').textContent = 'Bra jobbat!';
+  $('#winLoot').innerHTML = Array.from({ length:n }, (_, i) => `<i style="background-image:url(${MAT[mat].tex});animation-delay:${200 + i * 90}ms"></i>`).join('');
+  $('#win').classList.add('on');
+  Ljud.spela(mat === 'tra' ? 'vinst-tra' : 'vinst-sten');
+  const cols = ['#ffd84a','#5aa83a','#d6452b','#3c7fc4','#4fdedb'];
+  for (let k = 0; k < 40; k++){
+    const c = document.createElement('div'); c.className = 'confetti';
+    c.style.background = cols[k % cols.length]; c.style.left = (Math.random() * 100) + 'vw'; c.style.top = '-3vh';
+    document.body.appendChild(c);
+    c.animate([{ transform:'translateY(0) rotate(0)' }, { transform:`translateY(110vh) rotate(${Math.random() * 720}deg)` }],
+      { duration:1600 + Math.random() * 1200, delay:Math.random() * 400, easing:'cubic-bezier(.3,.6,.6,1)' }).onfinish = () => c.remove();
+  }
+}
+$('#winAgain').onclick = () => { $('#win').classList.remove('on'); go(lastLevel); };
+$('#winBuild').onclick = () => { $('#win').classList.remove('on'); go('bygg'); };
+
+/* ---------------- tornet: bygga ---------------- */
+let building = false;
+$('#towerBig').onclick = () => { if (!placeOne()) Ljud.spela('torn-grav'); };
+$('#buildAll').onclick = async () => {
+  if (building) return; building = true;
+  if (!nextMat()) { Ljud.spela('torn-grav'); building = false; return; }
+  while (placeOne()) await sleep(260);
+  building = false; $('#heroBygg').classList.remove('jump'); void $('#heroBygg').offsetWidth; $('#heroBygg').classList.add('jump');
+  Ljud.spela('torn-vaxer');
+};
+$('#fill6').onclick = () => { ORDN.forEach(m => S.bag[m] += 6); renderBags(); renderTower($('#towerBig'), 'calc(var(--u)*3.8)', { next:true }); };
+$('#showAll').onclick = () => { ORDN.forEach(m => S.built[m] = TOTAL(m)); renderTower($('#towerBig'), 'calc(var(--u)*3.8)', { next:true }); };
+$('#clearTower').onclick = () => { ORDN.forEach(m => S.built[m] = 0); renderTower($('#towerBig'), 'calc(var(--u)*3.8)', { next:true }); };
+
+/* ---------------- röstprovet ---------------- */
+const BOKST = [
+  ['A','a','aaa','aaa, som i apa'], ['M','m','mmm','mmm, som i mamma'], ['S','s','sss','sss, som i sol'],
+  ['O','o','ooo','ooo, som i orm'], ['L','l','lll','lll, som i lampa'], ['R','r','rrr','rrr, som i ros'], ['I','i','iii','iii, som i is'],
+];
+const say = (txt, lbl) => `<button class="say" data-say="${txt}">${lbl ? lbl + ' ' : ''}<code>${txt}</code></button>`;
+$('#letterTable tbody').innerHTML = BOKST.map(([N, k, l, o]) =>
+  `<tr><td class="letter">${N} ${k}</td><td>${say(N)}</td><td>${say(k)}</td><td>${say(l)}</td><td>${say(o)}</td></tr>`).join('');
+$('#syllables').innerHTML = ['ma','mo','mi','sa','so','la','lo','ra','ro','mmm... aaa... ma!','sss... ooo... lll... sol!'].map(s => say(s)).join('');
+$('#words').innerHTML = ['sol','mat','mus','ost','is','ros','mamma','pappa','Nils','lampa','torn','block'].map(s => say(s)).join('');
+$('#sentences').innerHTML = ['Hitta lilla a.','Nils ser en sol.','Mamma har en mus.','Bra jobbat, Nils! Du fick sex träblock.','Titta! Tornet växer!'].map(s => say(s)).join('');
+document.addEventListener('click', e => { const b = e.target.closest('[data-say]'); if (b) Tal.say(b.dataset.say, b); });
+$('#freeSay').onclick = () => Tal.say($('#freeText').value, $('#freeSay'));
+{ const g = {}; LJUDLISTA.forEach(r => (g[r.grupp] = g[r.grupp] || []).push(r));
+  $('#clips').innerHTML = Object.entries(g).map(([namn, rr]) => `<details class="grp"><summary>${namn} <span>${rr.length}</span></summary><div class="chips">${rr.map(r => `<button class="say" data-clip="${r.id}"><code>${r.visa || r.text}</code></button>`).join('')}</div></details>`).join(''); }
+document.addEventListener('click', e => { const b = e.target.closest('[data-clip]'); if (b) Ljud.spela(b.dataset.clip.split(','), b, +(b.dataset.paus || 0)); });
+/* Prov: appen sätter ihop rena ljud till ett ord (ljuda ihop). Variant a = v3, b = v2 (stoppljud: a "K.", b "Kh." v3, c "kh" v2). */
+{ const ORDPROV = [['sol', 's o l'], ['mus', 'm u s'], ['ros', 'r o s'], ['fisk', 'f i s k'], ['katt', 'k a t'], ['pil', 'p i l'], ['tom', 't o m']];
+  const stopp = c => 'kpt'.includes(c);
+  const knapp = (ord, ljud, v, vs, paus) => `<button class="say" data-paus="${paus}" data-clip="${ljud.split(' ').map(c => 'fon-' + c + '-' + (stopp(c) ? vs : v)).join(',')},ord-${ord}"><code>${ljud.split(' ').join(' – ')} → ${ord}</code></button>`;
+  const rader = ORDPROV.map(([o, lj]) => `<div class="chips" style="margin:6px 0">${knapp(o, lj, 'a', 'a', 450)}${knapp(o, lj, 'a', 'b', 450)}${knapp(o, lj, 'b', 'c', 450)}</div>`).join('');
+  $('#clips').insertAdjacentHTML('afterbegin', `<details class="grp" open><summary>Prov: ljuda ihop, appen sätter ihop <span>nytt</span></summary><p class="muted" style="margin:8px 0">Varje rad är samma ord på tre sätt. Första knappen: v3 ("Sss.", "K."). Andra: v3 men stoppljuden som "Kh.". Tredje: v2 ("sss", "kh"). Säg vilken kolumn som låter bäst.</p>${rader}</details>`); }
+
+function renderVoicePanel(){
+  const sel = $('#voiceSel'), info = $('#voiceInfo');
+  $('#rate').value = Tal.rate; $('#rateV').textContent = Tal.rate.toFixed(2);
+  $('#pitch').value = Tal.pitch; $('#pitchV').textContent = Tal.pitch.toFixed(2);
+  if (!Tal.ok){ sel.innerHTML = '<option>Ingen talsyntes i den här webbläsaren</option>'; info.innerHTML = 'Den här webbläsaren kan inte läsa upp text. Öppna sidan i Safari på paddan.'; return; }
+  if (!Tal.voices.length){
+    sel.innerHTML = '<option>Ingen svensk röst hittad (än)</option>';
+    info.innerHTML = 'Hittade ingen svensk röst. Den kan ta en sekund att dyka upp. Annars: följ tipset längst ner och ladda ner en svensk röst. Utan svensk röst läser webbläsaren med en annan röst.';
+    return;
+  }
+  const dubbel = n => Tal.voices.filter(v => v.name === n).length > 1;
+  sel.innerHTML = Tal.voices.map((v, i) => `<option value="${i}" ${v === Tal.voice ? 'selected' : ''}>${kvalitet(v) > 1 ? etikett(v) : v.name + (dubbel(v.name) ? ' ' + (Tal.voices.filter(w => w.name === v.name).indexOf(v) + 1) : '')}</option>`).join('');
+  $('#voiceIds').textContent = Tal.voices.map((v, i) => `${i + 1}: ${v.voiceURI}${v.localService ? '' : ' (nät)'}`).join(' · ');
+  const better = Tal.voices.some(v => kvalitet(v) > 1);
+  info.innerHTML = `Hittade ${Tal.voices.length} svensk${Tal.voices.length === 1 ? '' : 'a'} röst${Tal.voices.length === 1 ? '' : 'er'}. ` +
+    (better ? 'En bättre röst finns. Den bästa väljs av sig själv.' : 'Har du laddat ner en Premium-röst kan den heta likadant som den enkla. Prova båda och välj den som låter bäst.');
+}
+$('#voiceSel').onchange = e => { Tal.voice = Tal.voices[+e.target.value] || null; Tal.save(); Tal.say('Hej Nils! Ska vi gräva?'); };
+$('#rate').oninput = e => { Tal.rate = +e.target.value; $('#rateV').textContent = Tal.rate.toFixed(2); Tal.save(); };
+$('#pitch').oninput = e => { Tal.pitch = +e.target.value; $('#pitchV').textContent = Tal.pitch.toFixed(2); Tal.save(); };
+$('#rate').onchange = $('#pitch').onchange = () => Tal.say('Hitta lilla a.');
+
+/* ---------------- navigering ---------------- */
+function go(id){
+  Ljud.tyst(); Tal.ok && speechSynthesis.cancel();
+  $$('.screen').forEach(s => s.classList.toggle('on', s.id === id));
+  $$('#skissnav button').forEach(b => b.classList.toggle('on', b.dataset.go === id));
+  $('#win').classList.remove('on');
+  if (id === 'start') renderStart();
+  if (id === 'tra') startTra();
+  if (id === 'sten') startSten();
+  if (id === 'bygg'){
+    renderTower($('#towerBig'), 'calc(var(--u)*3.8)', { next:true });
+    Ljud.spela(nextMat() ? 'torn-tryck' : 'torn-grav');
+  }
+  renderBags();
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-go]'); if (b) { go(b.dataset.go); return; }
+  const l = e.target.closest('[data-locked]'); if (l) { fx('boop'); Ljud.spela('last'); }
+});
+$('#traSay').onclick = () => sayTra();
+$('#stenSay').onclick = () => saySten();
+$('#hej').onclick = () => { $('#heroStart').classList.remove('jump'); void $('#heroStart').offsetWidth; $('#heroStart').classList.add('jump'); Ljud.spela('hej'); };
+$('#heroStart').onclick = () => $('#hej').click();
+
+Tal.load(); renderStart(); renderBags();
+if (['tra','sten','bygg','rost'].includes(location.hash.slice(1))) go(location.hash.slice(1));
+</script>
+</body>
+</html>

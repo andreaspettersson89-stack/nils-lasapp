@@ -1,0 +1,2601 @@
+[
+ {
+  "id": "tra-hitta-a",
+  "text": "Hitta lilla a.",
+  "grupp": "Omgång 1"
+ },
+ {
+  "id": "tra-hitta-m",
+  "text": "Hitta lilla m.",
+  "grupp": "Omgång 1"
+ },
+ {
+  "id": "tra-hitta-s",
+  "text": "Hitta lilla s.",
+  "grupp": "Omgång 1"
+ },
+ {
+  "id": "tra-hitta-o",
+  "text": "Hitta lilla o.",
+  "grupp": "Omgång 1"
+ },
+ {
+  "id": "tra-hitta-l",
+  "text": "Hitta lilla l.",
+  "grupp": "Omgång 1"
+ },
+ {
+  "id": "tra-hitta-i",
+  "text": "Hitta lilla i.",
+  "grupp": "Omgång 1"
+ },
+ {
+  "id": "ratt-ja",
+  "text": "Ja!",
+  "grupp": "Omgång 1"
+ },
+ {
+  "id": "ratt-snyggt",
+  "text": "Snyggt!",
+  "grupp": "Omgång 1"
+ },
+ {
+  "id": "ratt-ratt",
+  "text": "Rätt!",
+  "grupp": "Omgång 1"
+ },
+ {
+  "id": "fel-prova",
+  "text": "Inte den. Prova igen!",
+  "grupp": "Omgång 1"
+ },
+ {
+  "id": "fel-lyssna",
+  "text": "Inte den. Lyssna igen.",
+  "grupp": "Omgång 1"
+ },
+ {
+  "id": "vinst-tra",
+  "text": "Bra jobbat, Nils! Du fick sex träblock. Nu kan du bygga!",
+  "grupp": "Omgång 1"
+ },
+ {
+  "id": "vinst-sten",
+  "text": "Bra jobbat, Nils! Du fick sex stenblock. Nu kan du bygga!",
+  "grupp": "Omgång 1"
+ },
+ {
+  "id": "hej",
+  "text": "Hej Nils! Jag är Åsk-Monstret. Ska vi gräva? Tryck på träblocket!",
+  "grupp": "Omgång 1"
+ },
+ {
+  "id": "torn-tryck",
+  "text": "Tryck på slottet för att bygga!",
+  "grupp": "Omgång 1"
+ },
+ {
+  "id": "torn-vaxer",
+  "text": "Titta! Slottet växer!",
+  "grupp": "Omgång 1"
+ },
+ {
+  "id": "torn-grav",
+  "text": "Gräv fler block först!",
+  "grupp": "Omgång 1"
+ },
+ {
+  "id": "last",
+  "text": "Den är låst. Börja med trä!",
+  "grupp": "Omgång 1"
+ },
+ {
+  "id": "ljud-m",
+  "text": "Mmmmm. Som i mamma.",
+  "grupp": "Omgång 1"
+ },
+ {
+  "id": "ljud-s",
+  "text": "Sssss. Som i sol.",
+  "grupp": "Omgång 1"
+ },
+ {
+  "id": "ljud-o",
+  "text": "Ooooo. Som i orm.",
+  "grupp": "Omgång 1"
+ },
+ {
+  "id": "ljud-a",
+  "text": "Aaaaa. Som i apa.",
+  "grupp": "Omgång 1"
+ },
+ {
+  "id": "ljud-l",
+  "text": "Lllll. Som i lampa.",
+  "grupp": "Omgång 1"
+ },
+ {
+  "id": "ljud-i",
+  "text": "Iiiii. Som i is.",
+  "grupp": "Omgång 1"
+ },
+ {
+  "id": "ord-sol",
+  "text": "sol",
+  "grupp": "Omgång 1"
+ },
+ {
+  "id": "ord-mat",
+  "text": "mat",
+  "grupp": "Omgång 1"
+ },
+ {
+  "id": "ord-mus",
+  "text": "mus",
+  "grupp": "Omgång 1"
+ },
+ {
+  "id": "ord-is",
+  "text": "is",
+  "grupp": "Omgång 1"
+ },
+ {
+  "id": "ord-ros",
+  "text": "ros",
+  "grupp": "Omgång 1"
+ },
+ {
+  "id": "ord-ost",
+  "text": "ost",
+  "grupp": "Omgång 1"
+ },
+ {
+  "id": "tra-hitta-b",
+  "text": "Hitta lilla b.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "ljud-b",
+  "text": "B-b-boll.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "tra-hitta-c",
+  "text": "Hitta lilla c.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "tra-hitta-d",
+  "text": "Hitta lilla d.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "ljud-d",
+  "text": "D-d-docka.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "tra-hitta-e",
+  "text": "Hitta lilla e.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "ljud-e",
+  "text": "Eeeee. Som i ekorre.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "tra-hitta-f",
+  "text": "Hitta lilla f.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "ljud-f",
+  "text": "Fffff. Som i fisk.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "tra-hitta-g",
+  "text": "Hitta lilla g.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "ljud-g",
+  "text": "G-g-gris.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "tra-hitta-h",
+  "text": "Hitta lilla h.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "ljud-h",
+  "text": "H-h-hus.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "tra-hitta-j",
+  "text": "Hitta lilla j.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "ljud-j",
+  "text": "Jjjjj. Som i jul.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "tra-hitta-k",
+  "text": "Hitta lilla k.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "ljud-k",
+  "text": "K-k-katt.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "tra-hitta-n",
+  "text": "Hitta lilla n.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "ljud-n",
+  "text": "Nnnnn. Som i näsa.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "tra-hitta-p",
+  "text": "Hitta lilla p.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "ljud-p",
+  "text": "P-p-pappa.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "tra-hitta-q",
+  "text": "Hitta lilla q.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "tra-hitta-r",
+  "text": "Hitta lilla r.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "ljud-r",
+  "text": "Rrrrr. Som i ros.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "tra-hitta-t",
+  "text": "Hitta lilla t.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "ljud-t",
+  "text": "T-t-tåg.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "tra-hitta-u",
+  "text": "Hitta lilla u.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "ljud-u",
+  "text": "Uuuuu. Som i uggla.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "tra-hitta-v",
+  "text": "Hitta lilla v.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "ljud-v",
+  "text": "Vvvvv. Som i val.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "tra-hitta-w",
+  "text": "Hitta lilla w.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "tra-hitta-x",
+  "text": "Hitta lilla x.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "tra-hitta-y",
+  "text": "Hitta lilla y.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "ljud-y",
+  "text": "Yyyyy. Som i yxa.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "tra-hitta-z",
+  "text": "Hitta lilla z.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "tra-hitta-å",
+  "text": "Hitta lilla å.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "ljud-å",
+  "text": "Åååå. Som i ål.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "tra-hitta-ä",
+  "text": "Hitta lilla ä.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "ljud-ä",
+  "text": "Ääää. Som i älg.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "tra-hitta-ö",
+  "text": "Hitta lilla ö.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "ljud-ö",
+  "text": "Öööö. Som i öra.",
+  "grupp": "Bokstäver"
+ },
+ {
+  "id": "stav-ma",
+  "text": "ma",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-mo",
+  "text": "mo",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-mi",
+  "text": "mi",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-me",
+  "text": "me",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-mu",
+  "text": "mu",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-må",
+  "text": "må",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-sa",
+  "text": "sa",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-so",
+  "text": "so",
+  "grupp": "Stavelser",
+  "uttal": "soo",
+  "grupp_vis": 1
+ },
+ {
+  "id": "stav-si",
+  "text": "si",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-se",
+  "text": "se",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-su",
+  "text": "su",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-så",
+  "text": "så",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-la",
+  "text": "la",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-lo",
+  "text": "lo",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-li",
+  "text": "li",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-le",
+  "text": "le",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-lu",
+  "text": "lu",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-lå",
+  "text": "lå",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-ra",
+  "text": "ra",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-ro",
+  "text": "ro",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-ri",
+  "text": "ri",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-re",
+  "text": "re",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-ru",
+  "text": "ru",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-rå",
+  "text": "rå",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-na",
+  "text": "na",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-no",
+  "text": "no",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-ni",
+  "text": "ni",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-ne",
+  "text": "ne",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-nu",
+  "text": "nu",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-nå",
+  "text": "nå",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-fa",
+  "text": "fa",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-fo",
+  "text": "fo",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-fi",
+  "text": "fi",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-fe",
+  "text": "fe",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-fu",
+  "text": "fu",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-få",
+  "text": "få",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-va",
+  "text": "va",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-vo",
+  "text": "vo",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-vi",
+  "text": "vi",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-ve",
+  "text": "ve",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-vu",
+  "text": "vu",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "stav-vå",
+  "text": "vå",
+  "grupp": "Stavelser"
+ },
+ {
+  "id": "ord-ko",
+  "text": "ko",
+  "grupp": "Korta ord",
+  "uttal": "koo",
+  "grupp_vis": 1
+ },
+ {
+  "id": "ord-ål",
+  "text": "ål",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-på",
+  "text": "på",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-nu",
+  "text": "nu",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-ja",
+  "text": "ja",
+  "grupp": "Korta ord",
+  "uttal": "jaa",
+  "grupp_vis": 1
+ },
+ {
+  "id": "ord-se",
+  "text": "se",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-le",
+  "text": "le",
+  "grupp": "Korta ord",
+  "uttal": "lee",
+  "grupp_vis": 1
+ },
+ {
+  "id": "ord-gå",
+  "text": "gå",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-må",
+  "text": "må",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-få",
+  "text": "få",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-bo",
+  "text": "bo",
+  "grupp": "Korta ord",
+  "uttal": "boo",
+  "grupp_vis": 1
+ },
+ {
+  "id": "ord-ny",
+  "text": "ny",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-sy",
+  "text": "sy",
+  "grupp": "Korta ord",
+  "uttal": "syy",
+  "grupp_vis": 1
+ },
+ {
+  "id": "ord-ro",
+  "text": "ro",
+  "grupp": "Korta ord",
+  "uttal": "roo",
+  "grupp_vis": 1
+ },
+ {
+  "id": "ord-bi",
+  "text": "bi",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-tå",
+  "text": "tå",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-ek",
+  "text": "ek",
+  "grupp": "Korta ord",
+  "uttal": "eek",
+  "grupp_vis": 1
+ },
+ {
+  "id": "ord-ram",
+  "text": "ram",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-mal",
+  "text": "mal",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-sal",
+  "text": "sal",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-mil",
+  "text": "mil",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-ris",
+  "text": "ris",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-ler",
+  "text": "ler",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-mor",
+  "text": "mor",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-far",
+  "text": "far",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-bil",
+  "text": "bil",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-bok",
+  "text": "bok",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-hus",
+  "text": "hus",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-hav",
+  "text": "hav",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-hal",
+  "text": "hal",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-kul",
+  "text": "kul",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-kam",
+  "text": "kam",
+  "grupp": "Korta ord",
+  "uttal": "kamm",
+  "grupp_vis": 1
+ },
+ {
+  "id": "ord-lök",
+  "text": "lök",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-lås",
+  "text": "lås",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-lus",
+  "text": "lus",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-lov",
+  "text": "lov",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-lim",
+  "text": "lim",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-lin",
+  "text": "lin",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-lur",
+  "text": "lur",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-mos",
+  "text": "mos",
+  "grupp": "Korta ord",
+  "uttal": "moos",
+  "grupp_vis": 1
+ },
+ {
+  "id": "ord-mur",
+  "text": "mur",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-mun",
+  "text": "mun",
+  "grupp": "Korta ord",
+  "uttal": "munn",
+  "grupp_vis": 1
+ },
+ {
+  "id": "ord-mås",
+  "text": "mås",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-nos",
+  "text": "nos",
+  "grupp": "Korta ord",
+  "uttal": "noos",
+  "grupp_vis": 1
+ },
+ {
+  "id": "ord-nål",
+  "text": "nål",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-rot",
+  "text": "rot",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-rök",
+  "text": "rök",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-rum",
+  "text": "rum",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-sil",
+  "text": "sil",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-sur",
+  "text": "sur",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-sus",
+  "text": "sus",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-säl",
+  "text": "säl",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-tak",
+  "text": "tak",
+  "grupp": "Korta ord",
+  "uttal": "taak",
+  "grupp_vis": 1
+ },
+ {
+  "id": "ord-tal",
+  "text": "tal",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-tio",
+  "text": "tio",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-tum",
+  "text": "tum",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-tår",
+  "text": "tår",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-tåg",
+  "text": "tåg",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-tid",
+  "text": "tid",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-tur",
+  "text": "tur",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-val",
+  "text": "val",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-väg",
+  "text": "väg",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-öra",
+  "text": "öra",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-öga",
+  "text": "öga",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-apa",
+  "text": "apa",
+  "grupp": "Korta ord",
+  "uttal": "aapa",
+  "grupp_vis": 1
+ },
+ {
+  "id": "ord-eld",
+  "text": "eld",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-fin",
+  "text": "fin",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-fot",
+  "text": "fot",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-fem",
+  "text": "fem",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-fyr",
+  "text": "fyr",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-ful",
+  "text": "ful",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-gul",
+  "text": "gul",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-gås",
+  "text": "gås",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-hök",
+  "text": "hök",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-hel",
+  "text": "hel",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-hem",
+  "text": "hem",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-kör",
+  "text": "kör",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-kol",
+  "text": "kol",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-lek",
+  "text": "lek",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-mål",
+  "text": "mål",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-nät",
+  "text": "nät",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-par",
+  "text": "par",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-pil",
+  "text": "pil",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-pip",
+  "text": "pip",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-ras",
+  "text": "ras",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-sko",
+  "text": "sko",
+  "grupp": "Korta ord",
+  "uttal": "skoo",
+  "grupp_vis": 1
+ },
+ {
+  "id": "ord-tom",
+  "text": "tom",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-vit",
+  "text": "vit",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-våg",
+  "text": "våg",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-vän",
+  "text": "vän",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-ägg",
+  "text": "ägg",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-lamm",
+  "text": "lamm",
+  "grupp": "Korta ord"
+ },
+ {
+  "id": "ord-lampa",
+  "text": "lampa",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-mamma",
+  "text": "mamma",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-pappa",
+  "text": "pappa",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-kaka",
+  "text": "kaka",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-bulle",
+  "text": "bulle",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-fisk",
+  "text": "fisk",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-katt",
+  "text": "katt",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-hund",
+  "text": "hund",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-häst",
+  "text": "häst",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-hatt",
+  "text": "hatt",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-sten",
+  "text": "sten",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-torn",
+  "text": "torn",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-guld",
+  "text": "guld",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-järn",
+  "text": "järn",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-svamp",
+  "text": "svamp",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-gris",
+  "text": "gris",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-orm",
+  "text": "orm",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-boll",
+  "text": "boll",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-båt",
+  "text": "båt",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-skog",
+  "text": "skog",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-äpple",
+  "text": "äpple",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-banan",
+  "text": "banan",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-glass",
+  "text": "glass",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-tröja",
+  "text": "tröja",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-mössa",
+  "text": "mössa",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-vante",
+  "text": "vante",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-stol",
+  "text": "stol",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-bord",
+  "text": "bord",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-säng",
+  "text": "säng",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-dörr",
+  "text": "dörr",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-mjölk",
+  "text": "mjölk",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-saft",
+  "text": "saft",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-korv",
+  "text": "korv",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-tomat",
+  "text": "tomat",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-morot",
+  "text": "morot",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-smör",
+  "text": "smör",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-kanin",
+  "text": "kanin",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-uggla",
+  "text": "uggla",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-ekorre",
+  "text": "ekorre",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-älg",
+  "text": "älg",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-räv",
+  "text": "räv",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-björn",
+  "text": "björn",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-varg",
+  "text": "varg",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-fågel",
+  "text": "fågel",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-hare",
+  "text": "hare",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-groda",
+  "text": "groda",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-snigel",
+  "text": "snigel",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-myra",
+  "text": "myra",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-moln",
+  "text": "moln",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-regn",
+  "text": "regn",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-snö",
+  "text": "snö",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-vind",
+  "text": "vind",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-blomma",
+  "text": "blomma",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-gräs",
+  "text": "gräs",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-träd",
+  "text": "träd",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-berg",
+  "text": "berg",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-sjö",
+  "text": "sjö",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-strand",
+  "text": "strand",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-sand",
+  "text": "sand",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-hink",
+  "text": "hink",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-spade",
+  "text": "spade",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-kula",
+  "text": "kula",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-docka",
+  "text": "docka",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-nalle",
+  "text": "nalle",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-bild",
+  "text": "bild",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-penna",
+  "text": "penna",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-sax",
+  "text": "sax",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-buss",
+  "text": "buss",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-cykel",
+  "text": "cykel",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-raket",
+  "text": "raket",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-robot",
+  "text": "robot",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-drake",
+  "text": "drake",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-kung",
+  "text": "kung",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-slott",
+  "text": "slott",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-borg",
+  "text": "borg",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-skatt",
+  "text": "skatt",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-spik",
+  "text": "spik",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-hammare",
+  "text": "hammare",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-stege",
+  "text": "stege",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-låda",
+  "text": "låda",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-tårta",
+  "text": "tårta",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ord-godis",
+  "text": "godis",
+  "grupp": "Längre ord"
+ },
+ {
+  "id": "ihop-sol",
+  "text": "sss … ooo … lll … sol!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-mus",
+  "text": "mmm … uuu … sss … mus!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-ros",
+  "text": "rrr … ooo … sss … ros!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-ram",
+  "text": "rrr … aaa … mmm … ram!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-mal",
+  "text": "mmm … aaa … lll … mal!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-sal",
+  "text": "sss … aaa … lll … sal!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-mil",
+  "text": "mmm … iii … lll … mil!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-ris",
+  "text": "rrr … iii … sss … ris!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-ler",
+  "text": "lll … eee … rrr … ler!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-mor",
+  "text": "mmm … ooo … rrr … mor!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-lus",
+  "text": "lll … uuu … sss … lus!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-lov",
+  "text": "lll … ooo … vvv … lov!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-lim",
+  "text": "lll … iii … mmm … lim!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-lin",
+  "text": "lll … iii … nnn … lin!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-lur",
+  "text": "lll … uuu … rrr … lur!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-mos",
+  "text": "mmm … ooo … sss … mos!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-mur",
+  "text": "mmm … uuu … rrr … mur!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-mun",
+  "text": "mmm … uuu … nnn … mun!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-mås",
+  "text": "mmm … ååå … sss … mås!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-nos",
+  "text": "nnn … ooo … sss … nos!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-nål",
+  "text": "nnn … ååå … lll … nål!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-sil",
+  "text": "sss … iii … lll … sil!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-sur",
+  "text": "sss … uuu … rrr … sur!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-sus",
+  "text": "sss … uuu … sss … sus!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-säl",
+  "text": "sss … äää … lll … säl!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-val",
+  "text": "vvv … aaa … lll … val!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-fin",
+  "text": "fff … iii … nnn … fin!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-fem",
+  "text": "fff … eee … mmm … fem!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-ful",
+  "text": "fff … uuu … lll … ful!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-fyr",
+  "text": "fff … yyy … rrr … fyr!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-is",
+  "text": "iii … sss … is!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-ål",
+  "text": "ååå … lll … ål!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "ihop-öra",
+  "text": "ööö … rrr … aaa … öra!",
+  "grupp": "Ljuda ihop"
+ },
+ {
+  "id": "forsta-sol",
+  "text": "Vilken bokstav börjar sol på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-mat",
+  "text": "Vilken bokstav börjar mat på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-mus",
+  "text": "Vilken bokstav börjar mus på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-ost",
+  "text": "Vilken bokstav börjar ost på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-ros",
+  "text": "Vilken bokstav börjar ros på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-ram",
+  "text": "Vilken bokstav börjar ram på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-mal",
+  "text": "Vilken bokstav börjar mal på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-sal",
+  "text": "Vilken bokstav börjar sal på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-mil",
+  "text": "Vilken bokstav börjar mil på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-ris",
+  "text": "Vilken bokstav börjar ris på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-ler",
+  "text": "Vilken bokstav börjar ler på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-mor",
+  "text": "Vilken bokstav börjar mor på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-far",
+  "text": "Vilken bokstav börjar far på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-bil",
+  "text": "Vilken bokstav börjar bil på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-bok",
+  "text": "Vilken bokstav börjar bok på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-hus",
+  "text": "Vilken bokstav börjar hus på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-hav",
+  "text": "Vilken bokstav börjar hav på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-hal",
+  "text": "Vilken bokstav börjar hal på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-kul",
+  "text": "Vilken bokstav börjar kul på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-kam",
+  "text": "Vilken bokstav börjar kam på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-lök",
+  "text": "Vilken bokstav börjar lök på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-lås",
+  "text": "Vilken bokstav börjar lås på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-lus",
+  "text": "Vilken bokstav börjar lus på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-lov",
+  "text": "Vilken bokstav börjar lov på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-lim",
+  "text": "Vilken bokstav börjar lim på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-lin",
+  "text": "Vilken bokstav börjar lin på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-lur",
+  "text": "Vilken bokstav börjar lur på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-mos",
+  "text": "Vilken bokstav börjar mos på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-mur",
+  "text": "Vilken bokstav börjar mur på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-mun",
+  "text": "Vilken bokstav börjar mun på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-mås",
+  "text": "Vilken bokstav börjar mås på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-nos",
+  "text": "Vilken bokstav börjar nos på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-nål",
+  "text": "Vilken bokstav börjar nål på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-rot",
+  "text": "Vilken bokstav börjar rot på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-rök",
+  "text": "Vilken bokstav börjar rök på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-rum",
+  "text": "Vilken bokstav börjar rum på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-sil",
+  "text": "Vilken bokstav börjar sil på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-sur",
+  "text": "Vilken bokstav börjar sur på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-sus",
+  "text": "Vilken bokstav börjar sus på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-säl",
+  "text": "Vilken bokstav börjar säl på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-tak",
+  "text": "Vilken bokstav börjar tak på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-tal",
+  "text": "Vilken bokstav börjar tal på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-tio",
+  "text": "Vilken bokstav börjar tio på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-tum",
+  "text": "Vilken bokstav börjar tum på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "forsta-tår",
+  "text": "Vilken bokstav börjar tår på?",
+  "grupp": "Vilken bokstav?"
+ },
+ {
+  "id": "mening-01",
+  "text": "Nils ser en sol.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-02",
+  "text": "Mamma har en mus.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-03",
+  "text": "Pappa har en bil.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-04",
+  "text": "En ko går på väg.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-05",
+  "text": "Katten sover.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-06",
+  "text": "Hunden är glad.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-07",
+  "text": "Jag ser ett torn.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-08",
+  "text": "Tornet är högt.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-09",
+  "text": "Solen är gul.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-10",
+  "text": "Ett lamm leker.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-11",
+  "text": "Fisken simmar.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-12",
+  "text": "Ugglan sitter i ett träd.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-13",
+  "text": "En älg står i skogen.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-14",
+  "text": "Nils har en boll.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-15",
+  "text": "Bollen är röd.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-16",
+  "text": "Mamma läser en bok.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-17",
+  "text": "Pappa äter ost.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-18",
+  "text": "Det regnar ute.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-19",
+  "text": "Snön är vit.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-20",
+  "text": "En båt på sjön.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-21",
+  "text": "Grisen är rosa.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-22",
+  "text": "Hästen springer.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-23",
+  "text": "Draken flyger.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-24",
+  "text": "Roboten går.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-25",
+  "text": "Kungen har ett slott.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-26",
+  "text": "Raketen åker upp.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-27",
+  "text": "Nils bygger ett torn.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-28",
+  "text": "Blocket är av trä.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-29",
+  "text": "Stenen är tung.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-30",
+  "text": "Guld är gult.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-31",
+  "text": "Diamanten glittrar.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-32",
+  "text": "Ekorren äter.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-33",
+  "text": "Räven är röd.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-34",
+  "text": "Björnen sover.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-35",
+  "text": "Myran är liten.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-36",
+  "text": "Snigeln är långsam.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-37",
+  "text": "Grodan hoppar.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-38",
+  "text": "Fågeln sjunger.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-39",
+  "text": "Vi äter glass.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-40",
+  "text": "Jag har en mössa.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-41",
+  "text": "Nils har en hatt.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-42",
+  "text": "Mamma har en kaka.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-43",
+  "text": "En nalle i sängen.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-44",
+  "text": "Lampan lyser.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-45",
+  "text": "Dörren är öppen.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-46",
+  "text": "Kaninen äter en morot.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-47",
+  "text": "Tårtan är god.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-48",
+  "text": "Nils gräver i sanden.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-49",
+  "text": "Hinken är full.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-50",
+  "text": "Månen lyser.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-51",
+  "text": "Molnet är grått.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-52",
+  "text": "Vinden blåser.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-53",
+  "text": "En kula rullar.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-54",
+  "text": "Spiken är av järn.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-55",
+  "text": "Skatten är av guld.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-56",
+  "text": "Nils hittar en skatt.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-57",
+  "text": "Jag kan läsa.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-58",
+  "text": "Det är kul att läsa.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-59",
+  "text": "Bussen kör.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "mening-60",
+  "text": "Cykeln är ny.",
+  "grupp": "Meningar"
+ },
+ {
+  "id": "berom-01",
+  "text": "Wow!",
+  "grupp": "Beröm"
+ },
+ {
+  "id": "berom-02",
+  "text": "Superbra!",
+  "grupp": "Beröm"
+ },
+ {
+  "id": "berom-03",
+  "text": "Kanon!",
+  "grupp": "Beröm"
+ },
+ {
+  "id": "berom-04",
+  "text": "Toppen, Nils!",
+  "grupp": "Beröm"
+ },
+ {
+  "id": "berom-05",
+  "text": "Du är grym!",
+  "grupp": "Beröm"
+ },
+ {
+  "id": "berom-06",
+  "text": "Snyggt grävt!",
+  "grupp": "Beröm"
+ },
+ {
+  "id": "berom-07",
+  "text": "Pang! Där gick blocket!",
+  "grupp": "Beröm"
+ },
+ {
+  "id": "berom-08",
+  "text": "Bra lyssnat!",
+  "grupp": "Beröm"
+ },
+ {
+  "id": "berom-09",
+  "text": "Du läste rätt!",
+  "grupp": "Beröm"
+ },
+ {
+  "id": "berom-10",
+  "text": "Ett block till!",
+  "grupp": "Beröm"
+ },
+ {
+  "id": "berom-11",
+  "text": "Yes!",
+  "grupp": "Beröm"
+ },
+ {
+  "id": "berom-12",
+  "text": "Helt rätt!",
+  "grupp": "Beröm"
+ },
+ {
+  "id": "berom-13",
+  "text": "Vilken läsare!",
+  "grupp": "Beröm"
+ },
+ {
+  "id": "berom-14",
+  "text": "Nu blir tornet högre!",
+  "grupp": "Beröm"
+ },
+ {
+  "id": "berom-15",
+  "text": "Snabbt och rätt!",
+  "grupp": "Beröm"
+ },
+ {
+  "id": "berom-16",
+  "text": "Där satt den!",
+  "grupp": "Beröm"
+ },
+ {
+  "id": "berom-17",
+  "text": "Du klarade det!",
+  "grupp": "Beröm"
+ },
+ {
+  "id": "berom-18",
+  "text": "Härligt!",
+  "grupp": "Beröm"
+ },
+ {
+  "id": "berom-19",
+  "text": "Precis!",
+  "grupp": "Beröm"
+ },
+ {
+  "id": "berom-20",
+  "text": "Mästerligt!",
+  "grupp": "Beröm"
+ },
+ {
+  "id": "hjalp-01",
+  "text": "Titta noga.",
+  "grupp": "Hjälp"
+ },
+ {
+  "id": "hjalp-02",
+  "text": "Lyssna en gång till.",
+  "grupp": "Hjälp"
+ },
+ {
+  "id": "hjalp-03",
+  "text": "Nästan! Prova igen.",
+  "grupp": "Hjälp"
+ },
+ {
+  "id": "hjalp-04",
+  "text": "Ingen fara, prova igen.",
+  "grupp": "Hjälp"
+ },
+ {
+  "id": "hjalp-05",
+  "text": "Tryck på högtalaren om du vill höra igen.",
+  "grupp": "Hjälp"
+ },
+ {
+  "id": "hjalp-06",
+  "text": "Ta det lugnt. Du har gott om tid.",
+  "grupp": "Hjälp"
+ },
+ {
+  "id": "hjalp-07",
+  "text": "Titta, den lyser!",
+  "grupp": "Hjälp"
+ },
+ {
+  "id": "hjalp-08",
+  "text": "Prova ett annat block.",
+  "grupp": "Hjälp"
+ },
+ {
+  "id": "hjalp-09",
+  "text": "Bra försök!",
+  "grupp": "Hjälp"
+ },
+ {
+  "id": "hjalp-10",
+  "text": "Det är svårt. Vi tar det tillsammans.",
+  "grupp": "Hjälp"
+ },
+ {
+  "id": "intro-tra",
+  "text": "Nu gräver vi trä! Hitta den lilla bokstaven.",
+  "grupp": "Berättarrösten"
+ },
+ {
+  "id": "intro-sten",
+  "text": "Nu går vi ner i grottan. Lyssna och välj rätt block.",
+  "grupp": "Berättarrösten"
+ },
+ {
+  "id": "intro-jarn",
+  "text": "Välkommen till järngruvan! Här ljudar vi ihop.",
+  "grupp": "Berättarrösten"
+ },
+ {
+  "id": "intro-guld",
+  "text": "Guldgruvan! Läs ordet och välj rätt.",
+  "grupp": "Berättarrösten"
+ },
+ {
+  "id": "intro-diamant",
+  "text": "Diamantgrottan! Nu läser vi meningar.",
+  "grupp": "Berättarrösten"
+ },
+ {
+  "id": "klar-tra",
+  "text": "Trävåningen är klar!",
+  "grupp": "Berättarrösten"
+ },
+ {
+  "id": "klar-sten",
+  "text": "Stenvåningen är klar!",
+  "grupp": "Berättarrösten"
+ },
+ {
+  "id": "klar-jarn",
+  "text": "Järnvåningen är klar!",
+  "grupp": "Berättarrösten"
+ },
+ {
+  "id": "klar-guld",
+  "text": "Guldvåningen är klar!",
+  "grupp": "Berättarrösten"
+ },
+ {
+  "id": "klar-diamant",
+  "text": "Diamanttoppen är klar! Slottet är färdigt!",
+  "grupp": "Berättarrösten"
+ },
+ {
+  "id": "oppnad-sten",
+  "text": "Du har låst upp sten!",
+  "grupp": "Berättarrösten"
+ },
+ {
+  "id": "oppnad-jarn",
+  "text": "Du har låst upp järn!",
+  "grupp": "Berättarrösten"
+ },
+ {
+  "id": "oppnad-guld",
+  "text": "Du har låst upp guld!",
+  "grupp": "Berättarrösten"
+ },
+ {
+  "id": "oppnad-diamant",
+  "text": "Du har låst upp diamant!",
+  "grupp": "Berättarrösten"
+ },
+ {
+  "id": "tid-slut",
+  "text": "Nu har du spelat klart för i dag. Bra jobbat, Nils! Tornet väntar på dig.",
+  "grupp": "Berättarrösten"
+ },
+ {
+  "id": "vinst-jarn",
+  "text": "Bra jobbat, Nils! Du fick sex järnblock. Nu kan du bygga!",
+  "grupp": "Berättarrösten"
+ },
+ {
+  "id": "vinst-guld",
+  "text": "Bra jobbat, Nils! Du fick sex guldblock. Nu kan du bygga!",
+  "grupp": "Berättarrösten"
+ },
+ {
+  "id": "vinst-diamant",
+  "text": "Bra jobbat, Nils! Du fick sex diamanter. Nu kan du bygga!",
+  "grupp": "Berättarrösten"
+ },
+ {
+  "id": "lyssna-valj",
+  "text": "Lyssna och välj rätt block.",
+  "grupp": "Berättarrösten"
+ },
+ {
+  "id": "las-valj",
+  "text": "Läs ordet. Vilket block är rätt?",
+  "grupp": "Berättarrösten"
+ },
+ {
+  "id": "las-mening",
+  "text": "Läs meningen och välj rätt.",
+  "grupp": "Berättarrösten"
+ },
+ {
+  "id": "fon-s-a",
+  "text": "Sss.",
+  "modell": "eleven_v3",
+  "grupp": "Prov: rena ljud",
+  "visa": "s → \"Sss.\" (v3)"
+ },
+ {
+  "id": "fon-s-b",
+  "text": "sss",
+  "modell": "eleven_multilingual_v2",
+  "grupp": "Prov: rena ljud",
+  "visa": "s → \"sss\" (v2)"
+ },
+ {
+  "id": "fon-m-a",
+  "text": "Mmm.",
+  "modell": "eleven_v3",
+  "grupp": "Prov: rena ljud",
+  "visa": "m → \"Mmm.\" (v3)"
+ },
+ {
+  "id": "fon-m-b",
+  "text": "mmm",
+  "modell": "eleven_multilingual_v2",
+  "grupp": "Prov: rena ljud",
+  "visa": "m → \"mmm\" (v2)"
+ },
+ {
+  "id": "fon-l-a",
+  "text": "Lll.",
+  "modell": "eleven_v3",
+  "grupp": "Prov: rena ljud",
+  "visa": "l → \"Lll.\" (v3)"
+ },
+ {
+  "id": "fon-l-b",
+  "text": "lll",
+  "modell": "eleven_multilingual_v2",
+  "grupp": "Prov: rena ljud",
+  "visa": "l → \"lll\" (v2)"
+ },
+ {
+  "id": "fon-r-a",
+  "text": "Rrr.",
+  "modell": "eleven_v3",
+  "grupp": "Prov: rena ljud",
+  "visa": "r → \"Rrr.\" (v3)"
+ },
+ {
+  "id": "fon-r-b",
+  "text": "rrr",
+  "modell": "eleven_multilingual_v2",
+  "grupp": "Prov: rena ljud",
+  "visa": "r → \"rrr\" (v2)"
+ },
+ {
+  "id": "fon-f-a",
+  "text": "Fff.",
+  "modell": "eleven_v3",
+  "grupp": "Prov: rena ljud",
+  "visa": "f → \"Fff.\" (v3)"
+ },
+ {
+  "id": "fon-f-b",
+  "text": "fff",
+  "modell": "eleven_multilingual_v2",
+  "grupp": "Prov: rena ljud",
+  "visa": "f → \"fff\" (v2)"
+ },
+ {
+  "id": "fon-o-a",
+  "text": "Oo.",
+  "modell": "eleven_v3",
+  "grupp": "Prov: rena ljud",
+  "visa": "o → \"Oo.\" (v3)"
+ },
+ {
+  "id": "fon-o-b",
+  "text": "oo",
+  "modell": "eleven_multilingual_v2",
+  "grupp": "Prov: rena ljud",
+  "visa": "o → \"oo\" (v2)"
+ },
+ {
+  "id": "fon-u-a",
+  "text": "Uu.",
+  "modell": "eleven_v3",
+  "grupp": "Prov: rena ljud",
+  "visa": "u → \"Uu.\" (v3)"
+ },
+ {
+  "id": "fon-u-b",
+  "text": "uu",
+  "modell": "eleven_multilingual_v2",
+  "grupp": "Prov: rena ljud",
+  "visa": "u → \"uu\" (v2)"
+ },
+ {
+  "id": "fon-a-a",
+  "text": "Aa.",
+  "modell": "eleven_v3",
+  "grupp": "Prov: rena ljud",
+  "visa": "a → \"Aa.\" (v3)"
+ },
+ {
+  "id": "fon-a-b",
+  "text": "aa",
+  "modell": "eleven_multilingual_v2",
+  "grupp": "Prov: rena ljud",
+  "visa": "a → \"aa\" (v2)"
+ },
+ {
+  "id": "fon-i-a",
+  "text": "Ii.",
+  "modell": "eleven_v3",
+  "grupp": "Prov: rena ljud",
+  "visa": "i → \"Ii.\" (v3)"
+ },
+ {
+  "id": "fon-i-b",
+  "text": "ii",
+  "modell": "eleven_multilingual_v2",
+  "grupp": "Prov: rena ljud",
+  "visa": "i → \"ii\" (v2)"
+ },
+ {
+  "id": "fon-k-a",
+  "text": "K.",
+  "modell": "eleven_v3",
+  "grupp": "Prov: rena ljud",
+  "visa": "k → \"K.\" (v3)"
+ },
+ {
+  "id": "fon-k-b",
+  "text": "Kh.",
+  "modell": "eleven_v3",
+  "grupp": "Prov: rena ljud",
+  "visa": "k → \"Kh.\" (v3)"
+ },
+ {
+  "id": "fon-k-c",
+  "text": "kh",
+  "modell": "eleven_multilingual_v2",
+  "grupp": "Prov: rena ljud",
+  "visa": "k → \"kh\" (v2)"
+ },
+ {
+  "id": "fon-t-a",
+  "text": "T.",
+  "modell": "eleven_v3",
+  "grupp": "Prov: rena ljud",
+  "visa": "t → \"T.\" (v3)"
+ },
+ {
+  "id": "fon-t-b",
+  "text": "Th.",
+  "modell": "eleven_v3",
+  "grupp": "Prov: rena ljud",
+  "visa": "t → \"Th.\" (v3)"
+ },
+ {
+  "id": "fon-t-c",
+  "text": "th",
+  "modell": "eleven_multilingual_v2",
+  "grupp": "Prov: rena ljud",
+  "visa": "t → \"th\" (v2)"
+ },
+ {
+  "id": "fon-p-a",
+  "text": "P.",
+  "modell": "eleven_v3",
+  "grupp": "Prov: rena ljud",
+  "visa": "p → \"P.\" (v3)"
+ },
+ {
+  "id": "fon-p-b",
+  "text": "Ph.",
+  "modell": "eleven_v3",
+  "grupp": "Prov: rena ljud",
+  "visa": "p → \"Ph.\" (v3)"
+ },
+ {
+  "id": "fon-p-c",
+  "text": "ph",
+  "modell": "eleven_multilingual_v2",
+  "grupp": "Prov: rena ljud",
+  "visa": "p → \"ph\" (v2)"
+ }
+]
