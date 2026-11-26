@@ -17,7 +17,7 @@ En läsapp för paddan (liggande) i en egen blockvärld. Nils gräver fram block
 | Guld | Läsa ord: hör "sol", välj bland ord som liknar det | efter järn |
 | Diamant | Meningar: hör meningen, välj rätt bland tre | efter guld |
 
-Sex rundor per nivå ger sex block. Det som blev fel kommer tillbaka oftare tills det sitter. Stjärnor: 0–1 fel = 3, 2–3 fel = 2, annars 1. Blocken bygger slottet (120 block). När det är klart kommer flaggor och en knapp för ett nytt slott.
+Sex rundor per nivå ger sex block. Det som blev fel kommer tillbaka oftare tills det sitter. Stjärnor: 0–1 fel = 3, 2–3 fel = 2, annars 1. Blocken bygger slottet: 113 block (trä 33, sten 26, järn 30, guld 18, diamant 6). När det är klart kommer flaggor och en knapp för ett nytt slott.
 
 ## Nya ljud
 
