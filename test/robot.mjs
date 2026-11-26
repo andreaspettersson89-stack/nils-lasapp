@@ -1,18 +1,19 @@
 // Provkörning av hela appen i en iPad-webbläsare (Playwright, liggande). Kör från en mapp som har playwright, t.ex.:
 //   cp test/robot.mjs ../traningsportal/_nils_robot.mjs && cd ../traningsportal && node _nils_robot.mjs "<sökväg till nils-lasapp>" <utmapp>
 // Ta bort kopian efteråt. Startar en egen liten webbserver. Skapar också ikon-180.png från ikon.svg.
+// Mot sidan på nätet: lägg adressen sist, t.ex. ... <utmapp> https://andreaspettersson89-stack.github.io/nils-lasapp/
 import { chromium, devices } from 'playwright';
 import http from 'http'; import fs from 'fs'; import path from 'path';
-const [,, mapp, ut] = process.argv;
+const [,, mapp, ut, live] = process.argv;
 const typ = { '.html':'text/html', '.js':'text/javascript', '.css':'text/css', '.svg':'image/svg+xml', '.png':'image/png', '.mp3':'audio/mpeg', '.json':'application/json' };
 const server = http.createServer((q, r) => {
   const f = path.join(mapp, decodeURIComponent(q.url.split('?')[0].split('#')[0]).replace(/\/$/, '/index.html'));
   if (!f.startsWith(mapp) || !fs.existsSync(f)) { r.writeHead(404); return r.end(); }
   r.writeHead(200, { 'Content-Type': typ[path.extname(f)] || 'application/octet-stream' }); fs.createReadStream(f).pipe(r);
 }).listen(0);
-const URL = `http://localhost:${server.address().port}/`;
+const URL = live || `http://localhost:${server.address().port}/`;
 const b = await chromium.launch();
-{ const p = await b.newPage({ viewport: { width: 180, height: 180 } });
+if (!live) { const p = await b.newPage({ viewport: { width: 180, height: 180 } });
   await p.goto(URL + 'ikon.svg'); await p.screenshot({ path: mapp + '/ikon-180.png' }); await p.close(); }
 
 const ctx = await b.newContext({ ...devices['iPad Pro 11 landscape'] });
@@ -39,6 +40,10 @@ async function spelaNiva(niva, felPaRunda = {}) {
 }
 
 await p.goto(URL); await p.evaluate(() => localStorage.clear()); await p.reload();
+for (const id of ['hej', 'tra-hitta-å', 'forsta-säl', 'ord-mås']) {
+  const st = await p.evaluate(async u => (await fetch(u)).status, 'ljud/' + id + '.mp3');
+  ok(st === 200, `ljudfilen ${id}.mp3 går att hämta`);
+}
 await p.waitForTimeout(500);
 await bild('1-start');
 ok(await p.$('#path [data-go="tra"]'), 'start: trä går att spela');
