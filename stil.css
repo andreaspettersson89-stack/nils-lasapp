@@ -213,3 +213,23 @@ button{font-family:inherit;color:inherit;border:0;background:none;padding:0;curs
 .knappsats button.tom{visibility:hidden}
 .knappsats button.sudd{font-size:22px;background:none}
 .kodruta .avbryt{margin-top:22px;color:var(--teal);font-weight:600;font-size:16px;padding:10px}
+
+/* ---------- järn, guld, diamant ---------- */
+#jarn .cave::after{background:radial-gradient(ellipse at 50% 42%,rgba(235,235,245,.24),rgba(0,0,0,.55) 70%)}
+#guld .cave::after{background:radial-gradient(ellipse at 50% 42%,rgba(255,214,80,.36),rgba(20,10,0,.58) 70%)}
+#diamant .cave::after{background:radial-gradient(ellipse at 50% 38%,rgba(90,235,235,.3),rgba(0,5,20,.62) 70%)}
+.block .plate.stav{font-size:calc(var(--blk)*.4)}
+.block .plate.word{font-size:calc(var(--blk)*.32);inset:20% 7%}
+.listen.meningar{top:calc(var(--u)*11)}
+.listen.meningar .speak.huge{width:calc(var(--u)*17);height:calc(var(--u)*17)}
+.row.meningar{flex-direction:column;align-items:center;gap:calc(var(--u)*2.6);bottom:calc(var(--g)*2 + var(--u)*3)}
+.block.mening{width:calc(var(--u)*86);height:calc(var(--u)*12.5);background-size:calc(var(--u)*12.5) calc(var(--u)*12.5);background-repeat:repeat}
+.block.mening .plate.mening{inset:14% 2.2%;font-size:calc(var(--u)*5.2);border-radius:calc(var(--u)*1.2);padding:0 calc(var(--u)*2) calc(var(--u)*.4);white-space:nowrap}
+.block.mening.hint{animation-name:hintx}
+@keyframes hintx{50%{filter:brightness(1.25) drop-shadow(0 0 calc(var(--u)*1.5) #fff6a0);transform:scale(1.03)}}
+
+/* ---------- slottet: nytt slott ---------- */
+.nyttslott{position:absolute;left:calc(var(--u)*5);bottom:calc(var(--g)*2 + var(--u)*3);z-index:5;display:flex;align-items:center;gap:calc(var(--u)*1.5);
+  color:#fff;font-weight:700;font-size:calc(var(--u)*4);text-shadow:0 2px 0 rgba(0,0,0,.35)}
+.nyttslott .bigbtn{background:#3c7fc4;animation:glow 1.6s ease-in-out infinite}
+.vuxen .bokst.lang{font-size:15px;height:auto;min-height:36px;padding:4px 10px}

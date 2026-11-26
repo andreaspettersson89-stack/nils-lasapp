@@ -23,10 +23,11 @@ p.on('pageerror', e => fel.push(e.message));
 p.on('console', m => { if (m.type() === 'error' && !/fonts/.test(m.text())) fel.push(m.text()); });
 const ok = (v, t) => { if (!v) { fel.push('MISSLYCKADES: ' + t); console.log('FEL  ' + t); } else console.log('ok   ' + t); };
 const S = () => p.evaluate(() => JSON.parse(localStorage.getItem('ljuda-ihop-v1') || 'null'));
+const ORD_NASTA = { jarn: 'guld', guld: 'diamant' };
 const bild = n => p.screenshot({ path: `${ut}/${n}.png` });
 
 async function spelaNiva(niva, felPaRunda = {}) {
-  const rad = niva === 'tra' ? '#traRow' : '#stenRow', prog = niva === 'tra' ? '#traProg' : '#stenProg';
+  const rad = `#${niva}Row`, prog = `#${niva}Prog`;
   for (let r = 0; r < 6; r++) {
     await p.waitForSelector(`${rad} .block[data-ok]`, { state: 'visible' });
     await p.waitForTimeout(450);
@@ -84,6 +85,39 @@ await p.click('#winAgain', { force: true }); await p.waitForSelector('#stenRow .
 await p.click('#stenRow .block[data-ok]', { force: true }); await p.waitForTimeout(100);
 await p.click('#sten [data-go="start"]', { force: true }); await p.waitForTimeout(3000);
 ok(await p.isVisible('#start') && !(await p.isVisible('#win.on')), 'hem mitt i: startsidan står kvar, inget firande');
+
+// järn, guld, diamant öppnas i tur och ordning
+const synligt = sel => p.$$eval(sel, els => els.every(e => { const r = e.getBoundingClientRect(); return r.top >= 0 && r.bottom <= innerHeight && r.left >= 0 && r.right <= innerWidth; }));
+for (const [niva, fore] of [['jarn', 'sten'], ['guld', 'jarn'], ['diamant', 'guld']]) {
+  ok(await p.$(`#path [data-go="${niva}"]`), `start: ${niva} upplåst efter ${fore}`);
+  if (niva !== 'diamant') ok(await p.$(`#path [data-locked="${ORD_NASTA[niva]}"]`), `start: ${ORD_NASTA[niva]} fortfarande låst`);
+  await p.click(`#path [data-go="${niva}"]`, { force: true });
+  await p.waitForSelector(`#${niva}Row .block[data-ok]`); await p.waitForTimeout(450);
+  const texter = await p.$$eval(`#${niva}Row .plate`, e => e.map(x => x.textContent));
+  ok(texter.length === 3 && new Set(texter).size === 3, `${niva}: tre olika block (${texter.join(' / ')})`);
+  ok(await synligt(`#${niva}Row .block, #${niva}Say`), `${niva}: blocken och högtalaren ryms på skärmen`);
+  await bild('7-' + niva);
+  await spelaNiva(niva, { 2: 1 });
+  s = await S(); ok(s.bag[niva] === 6 && s.klara[niva] === 1, `${niva}: sex block sparade`);
+  ok(Object.keys(s.miss[niva]).length === 1, `${niva}: felet sparat att öva på`);
+  await p.click('#winBuild', { force: true }); await p.waitForTimeout(200);
+  await p.click('#bygg [data-go="start"]', { force: true }); await p.waitForTimeout(300);
+}
+await bild('8-start-alla-oppna');
+
+// hela slottet: fyll ryggsäcken, bygg allt, flaggor + nytt slott
+await p.evaluate(() => { ORDN.forEach(m => S.bag[m] += TOTAL(m)); spara(); });
+await p.click('#mini', { force: true }); await p.waitForTimeout(300);
+ok(!(await p.isVisible('#nyttSlott')), 'slottet: ingen nytt-slott-knapp innan det är klart');
+await p.click('#buildAll', { force: true });
+await p.waitForFunction(() => ORDN.every(m => S.built[m] >= TOTAL(m)), null, { timeout: 60000 }); await p.waitForTimeout(800);
+ok((await p.$$('#towerBig .flag')).length === 3, 'slottet: tre flaggor när det är klart');
+ok(await p.isVisible('#nyttSlott'), 'slottet: knappen för nytt slott visas');
+await bild('9-slottet-klart');
+await p.click('#nyttSlott', { force: true }); await p.waitForTimeout(300);
+s = await S(); ok(s.slott === 1 && Object.values(s.built).every(v => v === 0), 'nytt slott: ett färdigt räknat, bygget börjar om');
+await p.click('#bygg [data-go="start"]', { force: true }); await p.waitForTimeout(300);
+await p.evaluate(() => { ORDN.forEach(m => S.bag[m] = 0); S.built.tra = 6; spara(); renderStart(); });   // tillbaka till läget testet väntar sig nedan
 
 // sparas över omladdning
 await p.reload(); await p.waitForTimeout(400);

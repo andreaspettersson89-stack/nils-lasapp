@@ -77,6 +77,48 @@
   <div class="row" id="stenRow"></div>
 </section>
 
+<!-- ======================= JÄRN: stavelser ======================= -->
+<section class="screen" id="jarn">
+  <div class="cave"></div>
+  <div class="ground stone"></div>
+  <div class="hud">
+    <button class="iconbtn" data-go="start" aria-label="Hem"><svg viewBox="0 0 24 24"><path fill="#fdf8ea" d="M12 3 2 12h3v8h5v-5h4v5h5v-8h3L12 3Z"/></svg></button>
+    <div class="progress" id="jarnProg"></div>
+    <div class="spacer"></div>
+    <div class="bag" data-bag></div>
+  </div>
+  <div class="listen"><button class="speak huge" id="jarnSay" data-tex="iron" aria-label="Lyssna"><svg viewBox="0 0 24 24"><path fill="#2b2a26" d="M4 9v6h4l5 5V4L8 9H4Zm12.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4Zm-2.5-9v2.1a7 7 0 0 1 0 13.8V21a9 9 0 0 0 0-18Z"/></svg></button></div>
+  <div class="row" id="jarnRow"></div>
+</section>
+
+<!-- ======================= GULD: läsa ord ======================= -->
+<section class="screen" id="guld">
+  <div class="cave"></div>
+  <div class="ground stone"></div>
+  <div class="hud">
+    <button class="iconbtn" data-go="start" aria-label="Hem"><svg viewBox="0 0 24 24"><path fill="#fdf8ea" d="M12 3 2 12h3v8h5v-5h4v5h5v-8h3L12 3Z"/></svg></button>
+    <div class="progress" id="guldProg"></div>
+    <div class="spacer"></div>
+    <div class="bag" data-bag></div>
+  </div>
+  <div class="listen"><button class="speak huge" id="guldSay" data-tex="gold" aria-label="Lyssna"><svg viewBox="0 0 24 24"><path fill="#2b2a26" d="M4 9v6h4l5 5V4L8 9H4Zm12.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4Zm-2.5-9v2.1a7 7 0 0 1 0 13.8V21a9 9 0 0 0 0-18Z"/></svg></button></div>
+  <div class="row" id="guldRow"></div>
+</section>
+
+<!-- ======================= DIAMANT: meningar ======================= -->
+<section class="screen" id="diamant">
+  <div class="cave"></div>
+  <div class="ground stone"></div>
+  <div class="hud">
+    <button class="iconbtn" data-go="start" aria-label="Hem"><svg viewBox="0 0 24 24"><path fill="#fdf8ea" d="M12 3 2 12h3v8h5v-5h4v5h5v-8h3L12 3Z"/></svg></button>
+    <div class="progress" id="diamantProg"></div>
+    <div class="spacer"></div>
+    <div class="bag" data-bag></div>
+  </div>
+  <div class="listen meningar"><button class="speak huge" id="diamantSay" data-tex="diamant" aria-label="Lyssna"><svg viewBox="0 0 24 24"><path fill="#2b2a26" d="M4 9v6h4l5 5V4L8 9H4Zm12.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4Zm-2.5-9v2.1a7 7 0 0 1 0 13.8V21a9 9 0 0 0 0-18Z"/></svg></button></div>
+  <div class="row meningar" id="diamantRow"></div>
+</section>
+
 <!-- ======================= SLOTTET ======================= -->
 <section class="screen" id="bygg">
   <div class="sky"></div>
@@ -90,6 +132,7 @@
   </div>
   <div class="hero" id="heroBygg" style="left:calc(50% - var(--u)*46);bottom:calc(var(--g)*2)"></div>
   <button class="tower" id="towerBig" style="position:absolute;left:50%;bottom:calc(var(--g)*2);transform:translateX(-50%)"></button>
+  <div class="nyttslott"><button class="bigbtn" id="nyttSlott" aria-label="Nytt slott" style="display:none"><svg viewBox="0 0 24 24"><path fill="#fff" d="M11 4h2v7h7v2h-7v7h-2v-7H4v-2h7z"/></svg></button><span id="slottRakning"></span></div>
   <div class="buildbtn"><button class="bigbtn" id="buildAll" aria-label="Bygg"><svg viewBox="0 0 24 24"><path fill="#fff" d="m14.6 2.4 7 7-2.1 2.1-1.4-1.4-2.8 2.8 1.4 1.4-2.1 2.1-1.4-1.4L5.6 22 2 18.4l7.6-7.6-1.4-1.4 2.1-2.1 1.4 1.4 2.8-2.8-1.4-1.4 1.5-2.1Z"/></svg><span class="badge" id="buildBadge">0</span></button></div>
 </section>
 
@@ -129,6 +172,11 @@
       <div class="lbl">Så går det</div>
       <h3>Nivåerna</h3>
       <table><thead><tr><th>Nivå</th><th>Klara</th><th>Bästa</th><th>Senast</th></tr></thead><tbody id="fNivaer"></tbody></table>
+    </div>
+    <div class="card">
+      <div class="lbl">Slottet</div>
+      <h3>Bygget</h3>
+      <p class="muted" id="fSlott" style="margin:0"></p>
     </div>
     <div class="card">
       <div class="lbl">Att öva på</div>

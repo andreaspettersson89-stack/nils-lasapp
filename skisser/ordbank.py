@@ -73,7 +73,7 @@ HJÄLP = ['Titta noga.', 'Lyssna en gång till.', 'Nästan! Prova igen.', 'Ingen
 BERÄTTARE = {
     'intro-tra': 'Nu gräver vi trä! Hitta den lilla bokstaven.',
     'intro-sten': 'Nu går vi ner i grottan. Lyssna och välj rätt block.',
-    'intro-jarn': 'Välkommen till järngruvan! Här ljudar vi ihop.',
+    'intro-jarn': 'Välkommen till järngruvan! Lyssna och hitta rätt block.',
     'intro-guld': 'Guldgruvan! Läs ordet och välj rätt.',
     'intro-diamant': 'Diamantgrottan! Nu läser vi meningar.',
     'klar-tra': 'Trävåningen är klar!', 'klar-sten': 'Stenvåningen är klar!', 'klar-jarn': 'Järnvåningen är klar!',
